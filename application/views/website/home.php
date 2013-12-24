@@ -1,0 +1,1 @@
+Silahkan masuk ke <a href="<?php echo base_url('panel'); ?>">Panel</a>
