@@ -40,12 +40,14 @@ class kredit_kendaraan extends DEALER_Controller {
 			}
 			
 			$result = $this->Penjualan_model->update($_POST);
-		} else if ($action == 'update_approve') {
+		}
+		else if ($action == 'update_approve') {
 			// reduce inventory
 			$param_kendaraan['stock_date'] = $_POST['order_date'];
+			$param_kendaraan['stock_update'] = -1;
+			$param_kendaraan['penjualan_id'] = $_POST['id'];
 			$param_kendaraan['jenis_unit_id'] = $_POST['jenis_unit_id'];
 			$param_kendaraan['jenis_warna_id'] = $_POST['jenis_warna_id'];
-			$param_kendaraan['stock_update'] = -1;
 			$result_inventory = $this->Kendaraan_model->update_total($param_kendaraan);
 			if ($result_inventory['status'] == false) {
 				echo json_encode($result_inventory);
@@ -57,12 +59,15 @@ class kredit_kendaraan extends DEALER_Controller {
 			$param_update['admin_id'] = $user['id'];
 			$param_update['status_penjualan_id'] = STATUS_PENJUALAN_DITERIMA;
 			$result = $this->Penjualan_model->update($param_update);
-		} else if ($action == 'update_delivery') {
+		}
+		else if ($action == 'update_delivery') {
 			$_POST['user_delivery_id'] = $user['id'];
 			$result = $this->Penjualan_model->update($_POST);
-		} else if ($action == 'get_by_id') {
+		}
+		else if ($action == 'get_by_id') {
 			$result = $this->Penjualan_model->get_by_id(array( 'id' => $_POST['id'] ));
-		} else if ($action == 'delete') {
+		}
+		else if ($action == 'delete') {
 			$result = $this->Penjualan_model->delete($_POST);
 		}
 		
