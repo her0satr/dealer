@@ -10,10 +10,14 @@ class kredit_kendaraan extends DEALER_Controller {
 	}
 	
 	function grid() {
-		$_POST['column'] = array( 'stock_date', 'jenis_unit_name', 'jenis_warna_name', 'stock_update', 'stock_total' );
+		$user = $this->User_model->get_session();
 		
-		$array = $this->Kendaraan_model->get_array($_POST);
-		$count = $this->Kendaraan_model->get_count();
+		$_POST['kredit_penjualan_grid'] = 1;
+		$_POST['user_type_id'] = $user['user_type_id'];
+		$_POST['column'] = array( 'sales_name', 'jenis_unit_name', 'jenis_pembayaran_name', 'order_date_swap', 'status_penjualan_name' );
+		
+		$array = $this->Penjualan_model->get_array($_POST);
+		$count = $this->Penjualan_model->get_count();
 		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
 		
 		echo json_encode($grid);
@@ -23,15 +27,43 @@ class kredit_kendaraan extends DEALER_Controller {
 		$action = (isset($_POST['action'])) ? $_POST['action'] : '';
 		unset($_POST['action']);
 		
+		$user = $this->User_model->get_session();
+		
 		$result = array();
 		if ($action == 'update') {
-			$result = $this->Kendaraan_model->update_total($_POST);
-		/*
+			if (empty($_POST['id'])) {
+				$_POST['sales_id'] = $user['id'];
+				$_POST['status_penjualan_id'] = STATUS_PENJUALAN_PENDING;
+				$_POST['order_date'] = $this->config->item('current_date');
+			} else {
+				$_POST['admin_id'] = $user['id'];
+			}
+			
+			$result = $this->Penjualan_model->update($_POST);
+		} else if ($action == 'update_approve') {
+			// reduce inventory
+			$param_kendaraan['stock_date'] = $_POST['order_date'];
+			$param_kendaraan['jenis_unit_id'] = $_POST['jenis_unit_id'];
+			$param_kendaraan['jenis_warna_id'] = $_POST['jenis_warna_id'];
+			$param_kendaraan['stock_update'] = -1;
+			$result_inventory = $this->Kendaraan_model->update_total($param_kendaraan);
+			if ($result_inventory['status'] == false) {
+				echo json_encode($result_inventory);
+				exit;
+			}
+			
+			// update penjualan
+			$param_update['id'] = $_POST['id'];
+			$param_update['admin_id'] = $user['id'];
+			$param_update['status_penjualan_id'] = STATUS_PENJUALAN_DITERIMA;
+			$result = $this->Penjualan_model->update($param_update);
+		} else if ($action == 'update_delivery') {
+			$_POST['user_delivery_id'] = $user['id'];
+			$result = $this->Penjualan_model->update($_POST);
 		} else if ($action == 'get_by_id') {
-			$result = $this->Kendaraan_model->get_by_id(array( 'id' => $_POST['id'] ));
+			$result = $this->Penjualan_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'delete') {
-			$result = $this->Kendaraan_model->delete($_POST);
-		/*	*/
+			$result = $this->Penjualan_model->delete($_POST);
 		}
 		
 		echo json_encode($result);

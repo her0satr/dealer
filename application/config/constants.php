@@ -16,7 +16,14 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 define('SHA_SECRET',							'OraNgerti');
 
+define('USER_ID_ADMINISTRATOR',					1);
+
+define('STATUS_PENJUALAN_PENDING',				1);
+define('STATUS_PENJUALAN_DITERIMA',				2);
+define('STATUS_PENJUALAN_DITOLAK',				3);
+
 define('KENDARAAN',								'kendaraan');
+define('JENIS_ANGSURAN',						'jenis_angsuran');
 define('JENIS_LEASING',							'jenis_leasing');
 define('JENIS_PEMBAYARAN',						'jenis_pembayaran');
 define('JENIS_UNIT',							'jenis_unit');
@@ -24,5 +31,6 @@ define('JENIS_WAKTU_KREDIT',					'jenis_waktu_kredit');
 define('JENIS_WARNA',							'jenis_warna');
 define('PAGE_STATIC',							'page_static');
 define('PENJUALAN',								'penjualan');
+define('STATUS_PENJUALAN',						'status_penjualan');
 define('USER',									'user');
 define('USER_TYPE',								'user_type');

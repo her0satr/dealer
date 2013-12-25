@@ -6,7 +6,7 @@ class Penjualan_model extends CI_Model {
 		
         $this->field = array(
 			'id', 'sales_id', 'jenis_unit_id', 'jenis_warna_id', 'jenis_leasing_id', 'jenis_angsuran_id', 'jenis_pembayaran_id', 'status_penjualan_id', 'name', 'nik',
-			'phone', 'birth_date', 'discount', 'dp_customer', 'dp_gross', 'sub', 'is_deliver'
+			'phone', 'birth_date', 'discount', 'dp_customer', 'dp_gross', 'sub', 'is_deliver', 'order_date', 'admin_id', 'is_deliver', 'user_delivery_id'
 		);
     }
 
@@ -50,13 +50,29 @@ class Penjualan_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
+		$param['field_replace']['order_date_swap'] = 'Penjualan.order_date';
+		
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'stock_date DESC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'order_date DESC');
 		$string_limit = GetStringLimit($param);
+
+		// additional sort
+		if (strtoupper($string_sorting) == strtoupper('Penjualan.order_date desc')) {
+			$string_sorting = 'Penjualan.order_date DESC, Penjualan.id DESC';
+		} else if (strtoupper($string_sorting) == strtoupper('Penjualan.order_date asc')) {
+			$string_sorting = 'Penjualan.order_date ASC, Penjualan.id ASC';
+		}
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS Penjualan.*
+			SELECT SQL_CALC_FOUND_ROWS Penjualan.*,
+				User.fullname sales_name, JenisUnit.name jenis_unit_name, JenisPembayaran.name jenis_pembayaran_name,
+				StatusPenjualan.name status_penjualan_name
 			FROM ".PENJUALAN." Penjualan
+			LEFT JOIN ".USER." User ON User.id = Penjualan.sales_id
+			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Penjualan.jenis_unit_id
+			LEFT JOIN ".JENIS_PEMBAYARAN." JenisPembayaran ON JenisPembayaran.id = Penjualan.jenis_pembayaran_id
+			LEFT JOIN ".STATUS_PENJUALAN." StatusPenjualan ON StatusPenjualan.id = Penjualan.status_penjualan_id
 			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
@@ -91,8 +107,35 @@ class Penjualan_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row, array( ));
+		$row['order_date_swap'] = ExchangeFormatDate($row['order_date']);
+		
+		// status penjualan
+		if ($row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA) {
+			$row['status_penjualan_name'] .= (empty($row['is_deliver'])) ? '' : ' - Terkirim';
+		}
 		
 		if (count(@$param['column']) > 0) {
+			// generate button
+			if (!empty($param['kredit_penjualan_grid'])) {
+				$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
+				
+				// approve / reject button
+				if (@$param['user_type_id'] == USER_ID_ADMINISTRATOR && $row['status_penjualan_id'] == STATUS_PENJUALAN_PENDING) {
+					$param['is_custom'] .= '<button class="btn btn-xs btn-approve btn-success"><i class="fa fa-check"></i></button> ';
+					$param['is_custom'] .= '<button class="btn btn-xs btn-reject btn-warning"><i class="fa fa-adjust"></i></button> ';
+				}
+				
+				// delivery button
+				if (@$param['user_type_id'] == USER_ID_ADMINISTRATOR && $row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA && empty($row['is_deliver'])) {
+					$param['is_custom'] .= '<button class="btn btn-xs btn-delivery btn-success"><i class="fa fa-envelope"></i></button> ';
+				}
+				
+				// delete button
+				if($row['status_penjualan_id'] == STATUS_PENJUALAN_PENDING) {
+					$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
+				}
+			}
+			
 			$row = dt_view_set($row, $param);
 		}
 		

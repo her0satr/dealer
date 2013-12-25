@@ -34,7 +34,12 @@ class Kendaraan_model extends CI_Model {
 		
 		$param_update = $param;
 		$param_update['stock_total'] = $record_last['stock_total'] + $param['stock_update'];
-		$result = $this->update($param_update);
+		if ($param_update['stock_total'] < 0) {
+            $result['status'] = '0';
+            $result['message'] = 'Tidak ada kendaraan tersedia, silahkan memasukkan data Kendaraan Masuk terlebih dahulu.';
+		} else {
+			$result = $this->update($param_update);
+		}
 		
 		return $result;
 	}
@@ -63,6 +68,13 @@ class Kendaraan_model extends CI_Model {
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'stock_date DESC');
 		$string_limit = GetStringLimit($param);
+		
+		// additional sort
+		if (strtoupper($string_sorting) == strtoupper('stock_date DESC')) {
+			$string_sorting = 'Kendaraan.stock_date DESC, Kendaraan.id DESC';
+		} else if (strtoupper($string_sorting) == strtoupper('stock_date ASC')) {
+			$string_sorting = 'Kendaraan.stock_date ASC, Kendaraan.id ASC';
+		}
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS Kendaraan.*,
@@ -98,7 +110,7 @@ class Kendaraan_model extends CI_Model {
 			SELECT Kendaraan.*
 			FROM ".KENDARAAN." Kendaraan
 			WHERE jenis_unit_id = '".$param['jenis_unit_id']."' AND jenis_warna_id = '".$param['jenis_warna_id']."'
-			ORDER BY stock_date DESC
+			ORDER BY Kendaraan.stock_date DESC, Kendaraan.id DESC
 			LIMIT 1
 		";
         $select_result = mysql_query($select_query) or die(mysql_error());

@@ -17,7 +17,6 @@
 			<ul>
 				<li><a data-link="inventory" href="<?php echo base_url('panel/inventory/kendaraan_masuk'); ?>">Kendaraan Masuk</a></li>
 				<li><a data-link="inventory" href="<?php echo base_url('panel/inventory/kredit_kendaraan'); ?>">Kredit Kendaraan</a></li>
-				<li><a data-link="inventory" href="<?php echo base_url('panel/inventory/konfirmasi_kredit'); ?>">Konfirmasi Kredit</a></li>
 				<li><a data-link="inventory" href="<?php echo base_url('panel/inventory/rekap_kredit'); ?>">Rekap Kredit</a></li>
 			</ul>
 		</li>
@@ -47,6 +46,7 @@
 				<li><a data-link="jenis_unit" href="<?php echo base_url('panel/master/jenis_unit'); ?>">Jenis Unit</a></li>
 				<li><a data-link="jenis_warna" href="<?php echo base_url('panel/master/jenis_warna'); ?>">Jenis Warna</a></li>
 				<li><a data-link="jenis_leasing" href="<?php echo base_url('panel/master/jenis_leasing'); ?>">Jenis Leasing</a></li>
+				<li><a data-link="jenis_angsuran" href="<?php echo base_url('panel/master/jenis_angsuran'); ?>">Jenis Angsuran</a></li>
 				<li><a data-link="jenis_pembayaran" href="<?php echo base_url('panel/master/jenis_pembayaran'); ?>">Jenis Pembayaran</a></li>
 				<li><a data-link="jenis_waktu_kredit" href="<?php echo base_url('panel/master/jenis_waktu_kredit'); ?>">Jenis Waktu Kredit</a></li>
 			</ul>
