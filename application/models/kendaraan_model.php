@@ -121,6 +121,42 @@ class Kendaraan_model extends CI_Model {
         return $array;
 	}
 	
+	function get_summary($param) {
+        $array = array();
+		
+		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
+		$param['field_replace']['jenis_warna_name'] = 'JenisWarna.name';
+		
+		$string_filter = GetStringFilter($param, @$param['column']);
+		$string_sorting = GetStringSorting($param, @$param['column'], 'JenisUnit.name DESC');
+		$string_limit = GetStringLimit($param);
+		
+		$select_query = "
+			SELECT SQL_CALC_FOUND_ROWS JenisUnit.name jenis_unit_name, JenisWarna.name jenis_warna_name,
+				(	SELECT stock_total FROM kendaraan KendaraanSub
+					WHERE
+						KendaraanSub.jenis_unit_id = Kendaraan.jenis_unit_id
+						AND KendaraanSub.jenis_warna_id = Kendaraan.jenis_warna_id
+					ORDER BY KendaraanSub.id DESC
+					LIMIT 1
+				) total
+			FROM ".KENDARAAN." Kendaraan
+			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Kendaraan.jenis_unit_id
+			LEFT JOIN ".JENIS_WARNA." JenisWarna ON JenisWarna.id = Kendaraan.jenis_warna_id
+			WHERE 1 $string_filter
+			GROUP BY JenisUnit.name, JenisWarna.name
+			ORDER BY $string_sorting
+			LIMIT $string_limit
+		";
+		
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$array[] = $this->sync($row, $param);
+		}
+		
+        return $array;
+	}
+	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".KENDARAAN." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());

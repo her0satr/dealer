@@ -4,7 +4,7 @@ class User_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'user_type_id', 'email', 'fullname', 'passwd', 'address', 'register_date', 'is_active' );
+        $this->field = array( 'id', 'user_type_id', 'email', 'fullname', 'passwd', 'address', 'register_date', 'is_active', 'thumbnail' );
     }
 
     function update($param) {
@@ -100,6 +100,12 @@ class User_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
+		
+		if (!empty($row['thumbnail'])) {
+			$row['thumbnail_link'] = base_url('static/upload/'.$row['thumbnail']);
+		} else {
+			$row['thumbnail_link'] = base_url('static/img/user1.png');
+		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

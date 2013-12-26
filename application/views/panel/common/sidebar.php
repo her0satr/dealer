@@ -15,16 +15,16 @@
 		<li class="has_sub">
 			<a href="#" data-link="inventory"><i class="fa fa-folder"></i><span>Inventory</span><span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
 			<ul>
-				<li><a data-link="inventory" href="<?php echo base_url('panel/inventory/kendaraan_masuk'); ?>">Kendaraan Masuk</a></li>
-				<li><a data-link="inventory" href="<?php echo base_url('panel/inventory/kredit_kendaraan'); ?>">Kredit Kendaraan</a></li>
-				<li><a data-link="inventory" href="<?php echo base_url('panel/inventory/rekap_kredit'); ?>">Rekap Kredit</a></li>
+				<li><a data-link="kendaraan_masuk" href="<?php echo base_url('panel/inventory/kendaraan_masuk'); ?>">Kendaraan Masuk</a></li>
+				<li><a data-link="kredit_kendaraan" href="<?php echo base_url('panel/inventory/kredit_kendaraan'); ?>">Penjualan Kendaraan</a></li>
 			</ul>
 		</li>
 		<li class="has_sub">
 			<a href="#" data-link="report"><i class="fa fa-folder"></i><span>Laporan</span><span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
 			<ul>
-				<li><a data-link="report" href="<?php echo base_url('panel/report'); ?>">Stock Kendaraan</a></li>
-				<li><a data-link="report" href="<?php echo base_url('panel/report'); ?>">Penjualan berdasarkan Sales</a></li>
+				<li><a data-link="stock_kendaraan" href="<?php echo base_url('panel/report/stock_kendaraan'); ?>">Stock Kendaraan</a></li>
+				<li><a data-link="rekap_penjualan" href="<?php echo base_url('panel/report/rekap_penjualan'); ?>">Rekap Penjualan</a></li>
+				<li><a data-link="rekap_sales" href="<?php echo base_url('panel/report/rekap_sales'); ?>">Penjualan Sales</a></li>
 			</ul>
 		</li>
 		<li class="has_sub">

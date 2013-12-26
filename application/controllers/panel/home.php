@@ -9,6 +9,10 @@ class home extends CI_Controller {
 		$this->load->view( 'panel/login');
 	}
 	
+	function dashboard() {
+		$this->load->view( 'panel/dashboard');
+	}
+	
 	function action() {
 		$user = $this->User_model->get_by_id(array( 'email' => $_POST['email'] ));
 		

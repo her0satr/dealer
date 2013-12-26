@@ -95,6 +95,72 @@ class Penjualan_model extends CI_Model {
 		return $TotalRecord;
     }
 	
+	function get_rekap_penjualan($param = array()) {
+		$array = array();
+		
+		$select_query = "
+			SELECT JenisUnit.name jenis_unit_name,
+				(	SELECT COUNT(*)
+					FROM ".PENJUALAN." PenjualanKredit
+					WHERE
+						PenjualanKredit.jenis_unit_id = Penjualan.jenis_unit_id
+						AND PenjualanKredit.jenis_pembayaran_id = '".JENIS_PEMBAYARAN_KREDIT."'
+						AND PenjualanKredit.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
+						AND PenjualanKredit.order_date >= '".$param['date_start']."'
+						AND PenjualanKredit.order_date <= '".$param['date_end']."'
+				) kredit,
+				(	SELECT COUNT(*)
+					FROM ".PENJUALAN." PenjualanTunai
+					WHERE
+						PenjualanTunai.jenis_unit_id = Penjualan.jenis_unit_id
+						AND PenjualanTunai.jenis_pembayaran_id = '".JENIS_PEMBAYARAN_TUNAI."'
+						AND PenjualanTunai.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
+						AND PenjualanTunai.order_date >= '".$param['date_start']."'
+						AND PenjualanTunai.order_date <= '".$param['date_end']."'
+				) tunai
+			FROM ".PENJUALAN." Penjualan
+			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Penjualan.jenis_unit_id
+			WHERE
+				Penjualan.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
+				AND Penjualan.order_date >= '".$param['date_start']."'
+				AND Penjualan.order_date <= '".$param['date_end']."'
+			GROUP BY JenisUnit.name
+			ORDER BY JenisUnit.name ASC
+			LIMIT 25
+		";
+		
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$array[] = $row;
+		}
+		
+        return $array;
+    }
+	
+	function get_rekap_sales($param = array()) {
+		$array = array();
+		
+		$select_query = "
+			SELECT User.fullname label, COUNT(*) value
+			FROM ".PENJUALAN." Penjualan
+			LEFT JOIN ".USER." User ON User.id = Penjualan.sales_id
+			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Penjualan.jenis_unit_id
+			WHERE
+				Penjualan.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
+				AND Penjualan.order_date >= '".$param['date_start']."'
+				AND Penjualan.order_date <= '".$param['date_end']."'
+			GROUP BY User.fullname
+			ORDER BY User.fullname ASC
+			LIMIT 25
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$array[] = $row;
+		}
+		
+        return $array;
+    }
+	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".PENJUALAN." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());

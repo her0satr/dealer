@@ -21,6 +21,8 @@ define('USER_ID_ADMINISTRATOR',					1);
 define('STATUS_PENJUALAN_PENDING',				1);
 define('STATUS_PENJUALAN_DITERIMA',				2);
 define('STATUS_PENJUALAN_DITOLAK',				3);
+define('JENIS_PEMBAYARAN_TUNAI',				1);
+define('JENIS_PEMBAYARAN_KREDIT',				2);
 
 define('KENDARAAN',								'kendaraan');
 define('JENIS_ANGSURAN',						'jenis_angsuran');

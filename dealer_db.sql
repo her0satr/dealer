@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 25, 2013 at 08:03 AM
+-- Generation Time: Dec 26, 2013 at 10:42 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `kendaraan` (
   `stock_update` int(11) NOT NULL,
   `stock_total` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `kendaraan`
@@ -176,7 +176,13 @@ INSERT INTO `kendaraan` (`id`, `penjualan_id`, `jenis_unit_id`, `jenis_warna_id`
 (8, 0, 13, 2, '2013-12-24', -1, 4),
 (10, 0, 13, 2, '2013-12-24', -1, 2),
 (11, 0, 13, 2, '2013-12-25', -1, 1),
-(12, 0, 13, 2, '2013-12-25', -1, 0);
+(12, 0, 13, 2, '2013-12-25', -1, 0),
+(13, 0, 13, 2, '2013-12-25', 2, 2),
+(14, 8, 13, 2, '2013-12-25', -1, 1),
+(15, 9, 13, 2, '2013-12-25', -1, 0),
+(16, 0, 13, 2, '2013-12-25', 5, 5),
+(17, 10, 13, 2, '2013-12-25', -1, 4),
+(18, 11, 13, 2, '2013-12-26', -1, 3);
 
 -- --------------------------------------------------------
 
@@ -227,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `penjualan` (
   `sub` int(11) NOT NULL,
   `is_deliver` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `penjualan`
@@ -239,7 +245,11 @@ INSERT INTO `penjualan` (`id`, `sales_id`, `admin_id`, `user_delivery_id`, `jeni
 (4, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 0),
 (5, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
 (6, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
-(7, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 0);
+(7, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 0),
+(8, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
+(9, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
+(10, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
+(11, 2, 2, 2, 13, 2, 4, 0, 1, 2, '2013-12-26', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -275,6 +285,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `fullname` varchar(100) NOT NULL,
   `passwd` varchar(100) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `thumbnail` varchar(255) NOT NULL,
   `register_date` datetime NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -284,10 +295,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `address`, `register_date`, `is_active`) VALUES
-(2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2013-10-17 03:17:56', 1),
-(4, 1, 'mail@mail.com', '12345', '', '3', '2013-12-17 06:02:58', 1),
-(6, 1, 'suekarea@yahoo.com', 'suekarea', '1621a5dc746d5d19665ed742b2ef9736', '-', '2013-12-19 18:59:27', 1);
+INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `address`, `thumbnail`, `register_date`, `is_active`) VALUES
+(2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2013/12/26/20131226_103710_8567.png', '2013-10-17 03:17:56', 1),
+(4, 1, 'mail@mail.com', '12345', '', '3', '', '2013-12-17 06:02:58', 1),
+(6, 1, 'suekarea@yahoo.com', 'suekarea', '1621a5dc746d5d19665ed742b2ef9736', '-', '', '2013-12-19 18:59:27', 1);
 
 -- --------------------------------------------------------
 
@@ -299,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `user_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user_type`
@@ -307,7 +318,8 @@ CREATE TABLE IF NOT EXISTS `user_type` (
 
 INSERT INTO `user_type` (`id`, `name`) VALUES
 (1, 'Administrator'),
-(2, 'Member');
+(2, 'Sales'),
+(3, 'Delivery');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

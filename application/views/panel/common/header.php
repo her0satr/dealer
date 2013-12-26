@@ -14,7 +14,7 @@
 			<ul class="nav navbar-nav pull-right">
 				<li class="dropdown pull-right user-data">
 					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-						<img src="<?php echo base_url('static/img/user1.png'); ?>">
+						<img src="<?php echo $user['thumbnail_link']; ?>" style="width: 25px; height: 25px;">
 						<?php echo $user['fullname']; ?> <b class="caret"></b>
 					</a>
 					

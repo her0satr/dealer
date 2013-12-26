@@ -59,7 +59,7 @@ $(document).ready(function() {
 		var param = Site.Form.GetValue('form-login');
 		Func.ajax({ url: web.host + 'panel/home/action', param: param, callback: function(result) {
 			if (result.success) {
-				window.location = web.host + 'panel/member/user'
+				window.location = web.host + 'panel/home/dashboard'
 			} else {
 				noty({ text: result.message, layout: 'topRight', type: 'error', timeout: 1500 });
 			}

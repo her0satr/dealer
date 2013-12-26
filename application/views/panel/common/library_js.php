@@ -22,8 +22,11 @@
 <script src="<?php echo base_url('static/js/layouts/top.js'); ?>"></script> <!-- jQuery Notify -->
 <!-- jQuery Notification ends -->
 
-<script src="<?php echo base_url('static/js/datatables/js/jquery.dataTables.js'); ?>"></script>
+<!-- Morris JS -->
+<script src="<?php echo base_url('static/js/raphael-min.js'); ?>"></script>
+<script src="<?php echo base_url('static/js/morris.min.js'); ?>"></script>
 
+<script src="<?php echo base_url('static/js/datatables/js/jquery.dataTables.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/sparklines.js'); ?>"></script> <!-- Sparklines -->
 <script src="<?php echo base_url('static/js/jquery.cleditor.min.js'); ?>"></script> <!-- CLEditor -->
 <script src="<?php echo base_url('static/js/bootstrap-datetimepicker.min.js'); ?>"></script> <!-- Date picker -->

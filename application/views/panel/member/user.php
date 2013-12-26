@@ -8,6 +8,10 @@
 
 <div class="content">
 	<?php $this->load->view( 'panel/common/sidebar'); ?>
+	<div class="hide">
+		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
+		<iframe name="iframe_thumnail" src="<?php echo base_url('panel/upload?callback=set_thumnail'); ?>"></iframe>
+	</div>
 	
   	<div class="mainbar">
 	    <div class="page-head">
@@ -95,6 +99,17 @@
 									<input type="password" name="passwd_confirm" class="form-control" placeholder="Password Confirm" />
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Avatar</label>
+								<div class="col-lg-4">
+									<input type="text" name="thumbnail" class="form-control" placeholder="Avatar" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-avatar" value="Browse" />
+								</div>
+							</div>
+							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Address</label>
 								<div class="col-lg-10">
@@ -151,6 +166,12 @@ $(document).ready(function() {
 		page.show_grid();
 	});
 	
+	// upload
+	$('.btn-browse-avatar').click(function() { window.iframe_thumnail.browse() });
+	set_thumnail = function(p) {
+		$('#form-user [name="thumbnail"]').val(p.file_name);
+	}
+	
 	// grid
 	var param = {
 		id: 'datatable',
@@ -167,6 +188,7 @@ $(document).ready(function() {
 					$('#form-user [name="email"]').val(result.email);
 					$('#form-user [name="address"]').val(result.address);
 					$('#form-user [name="fullname"]').val(result.fullname);
+					$('#form-user [name="thumbnail"]').val(result.thumbnail);
 					$('#form-user [name="is_active"]').filter('[value=' + result.is_active.toString() + ']').click();
 					
 					page.show_form_user();
