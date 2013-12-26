@@ -1,23 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Dec 26, 2013 at 10:42 AM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Dec 26, 2013 at 08:24 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `dealer_db`
---
 
 -- --------------------------------------------------------
 
@@ -289,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `register_date` datetime NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `user`
@@ -297,8 +290,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `address`, `thumbnail`, `register_date`, `is_active`) VALUES
 (2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2013/12/26/20131226_103710_8567.png', '2013-10-17 03:17:56', 1),
-(4, 1, 'mail@mail.com', '12345', '', '3', '', '2013-12-17 06:02:58', 1),
-(6, 1, 'suekarea@yahoo.com', 'suekarea', '1621a5dc746d5d19665ed742b2ef9736', '-', '', '2013-12-19 18:59:27', 1);
+(4, 1, 'eddy@yahoo.com', 'admin', 'fe30fa79056939db8cbe99c8d601de74', '3', '', '2013-12-17 06:02:58', 1),
+(7, 1, 'daniel.resjanto@gmail.com', 'daniel', '', 'jalan bla bla bla malang', '', '2013-12-24 11:37:31', 1);
 
 -- --------------------------------------------------------
 
