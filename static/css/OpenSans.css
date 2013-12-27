@@ -8,7 +8,7 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  src: local('Open Sans Semibold'), local('../font/OpenSans-Semibold'), url(OpenSansSemibold.woff) format('woff');
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../font/OpenSansSemibold.woff) format('woff');
 }
 @font-face {
   font-family: 'Open Sans';

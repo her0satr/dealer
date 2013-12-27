@@ -124,6 +124,7 @@ class Kendaraan_model extends CI_Model {
 	function get_summary($param) {
         $array = array();
 		
+		$param['field_replace']['total'] = '';
 		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
 		$param['field_replace']['jenis_warna_name'] = 'JenisWarna.name';
 		

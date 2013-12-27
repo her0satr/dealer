@@ -1036,10 +1036,11 @@ header .nav.nav-pills > li > a:hover, header .nav.nav-pills > li > a:focus{
 	margin-left: 230px;
 	margin-right: 0px;
 	width: auto;
-  overflow:hidden;
+	overflow:hidden;
 	background:#EEEFF2;
 	border-left: 1px solid #ccc;
 	z-index: 50;
+	min-width: 650px;
 	min-height: 800px;
 }
 

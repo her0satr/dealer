@@ -10,7 +10,7 @@
 	$page_data['date_end'] = $_POST['date_end'];
 	$page_data['chart_data'] = $array_rekap_penjualan;
 ?>
-<?php $this->load->view( 'panel/common/meta', array( 'title' => 'Rekap Kredit' ) ); ?>
+<?php $this->load->view( 'panel/common/meta', array( 'title' => 'Rekap Penjualan' ) ); ?>
 
 <body>
 <?php $this->load->view( 'panel/common/header'); ?>
@@ -21,7 +21,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left">Rekap Kredit</h2>
+			<h2 class="pull-left">Rekap Penjualan</h2>
 			<div class="clearfix"></div>
 		</div>
 		
@@ -70,7 +70,7 @@
 				
 				<div class="widget">
 					<div class="widget-head">
-						<div class="pull-left">Chart Rekap Kredit</div>
+						<div class="pull-left">Chart Rekap Penjualan</div>
 						<div class="widget-icons pull-right">
 							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
