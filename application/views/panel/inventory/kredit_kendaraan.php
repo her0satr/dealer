@@ -76,7 +76,7 @@
 								<tr>
 									<th>Nama Sales</th>
 									<th>Jenis Unit</th>
-									<th>Jenis Pembayaran</th>
+									<th>Nama Konsumen</th>
 									<th>Tanggal Order</th>
 									<th>Status Penjualan</th>
 									<th>Control</th></tr>

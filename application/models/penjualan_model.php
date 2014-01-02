@@ -51,8 +51,11 @@ class Penjualan_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['name'] = 'Penjualan.name';
+		$param['field_replace']['sales_name'] = 'User.fullname';
 		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
 		$param['field_replace']['order_date_swap'] = 'Penjualan.order_date';
+		$param['field_replace']['status_penjualan_name'] = 'StatusPenjualan.name';
 		
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'order_date DESC');
@@ -161,6 +164,61 @@ class Penjualan_model extends CI_Model {
 		
         return $array;
     }
+	
+	function get_rekap_yearly() {
+		$year_last = date("Y") - 1;
+		$month_last = date("m");
+		
+		// prepare result
+		$result = array( 'data' => array(), 'key' => array(), 'label' => array() );
+		for ($i = 12; $i >= 0; $i--) {
+			$year_month = date("Ym", strtotime("-$i Month"));
+			$result['data'][$year_month] = array( 'ym' => $year_month );
+		}
+		
+		// get value
+		$select_query = "
+			SELECT JenisUnit.name, LEFT(Penjualan.order_date, 7) order_month, COUNT(*) total
+			FROM ".PENJUALAN." Penjualan
+			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Penjualan.jenis_unit_id
+			WHERE
+				Penjualan.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
+				AND YEAR(Penjualan.order_date) >= '".$year_last."'
+				AND MONTH(Penjualan.order_date) >= '".$month_last."'
+			GROUP BY JenisUnit.name, order_month
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$order_month_name = preg_replace('/[^0-9]/i', '', $row['order_month']);
+			$jenis_unit_name = preg_replace('/[^0-9a-z]/i', '_', strtolower($row['name']));
+			$result['data'][$order_month_name][$jenis_unit_name] = $row['total'];
+			
+			// key
+			if (!in_array($jenis_unit_name, $result['key'])) {
+				$result['key'][] = $jenis_unit_name;
+			}
+			
+			// label
+			if (!in_array($row['name'], $result['label'])) {
+				$result['label'][] = $row['name'];
+			}
+		}
+		
+		// fix data
+		$temp_data = $result['data'];
+		$result['data'] = array();
+		foreach ($temp_data as $row) {
+			foreach ($result['key'] as $key) {
+				if (!isset($row[$key])) {
+					$row[$key] = 0;
+				}
+			}
+			
+			$result['data'][] = $row;
+		}
+		
+		return $result;
+	}
 	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".PENJUALAN." WHERE id = '".$param['id']."' LIMIT 1";

@@ -6,7 +6,7 @@ class invoice extends DEALER_Controller {
 	}
 	
 	function index() {
-		$this->load->view( 'panel/inventory/invoice');
+		$this->load->view( 'panel/inventory/invoice' );
 	}
 	
 	function grid() {
@@ -43,5 +43,9 @@ class invoice extends DEALER_Controller {
 		}
 		
 		echo json_encode($result);
+	}
+	
+	function cetak() {
+		$this->load->view( 'panel/inventory/invoice_cetak' );
 	}
 }

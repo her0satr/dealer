@@ -89,6 +89,12 @@
 									<input type="text" name="pengantar" class="form-control" placeholder="Yang Menyerahkan" />
 								</div>
 							</div>
+							<div class="form-group cnt-content">
+								<label class="col-lg-2 control-label">Keterangan</label>
+								<div class="col-lg-10">
+									<input type="text" name="content" class="form-control" placeholder="Keterangan" />
+								</div>
+							</div>
 							<hr />
 							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-9">
@@ -120,6 +126,12 @@ $(document).ready(function() {
 		show_form_invoice: function() {
 			$('.grid-main').hide();
 			$('#form-invoice').show();
+			
+			if (page.data.penjualan_id == 0) {
+				$('#form-invoice .cnt-content').show();
+			} else {
+				$('#form-invoice .cnt-content').hide();
+			}
 		},
 		init: function() {
 			var temp = $('.cnt-data').html();
@@ -150,6 +162,7 @@ $(document).ready(function() {
 				Func.ajax({ url: web.host + 'panel/inventory/invoice/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					$('#form-invoice [name="id"]').val(result.id);
 					$('#form-invoice [name="no"]').val(result.no);
+					$('#form-invoice [name="content"]').val(result.content);
 					$('#form-invoice [name="rupiah_angka"]').val(result.rupiah_angka);
 					$('#form-invoice [name="rupiah_text"]').val(result.rupiah_text);
 					$('#form-invoice [name="pengantar"]').val(result.pengantar);

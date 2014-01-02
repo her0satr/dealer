@@ -118,14 +118,22 @@ if (! function_exists('ConvertDateToString')) {
 }
 
 if (! function_exists('GetFormatDate')) {
+	// echo GetFormatDate('2013-12-05', array( 'FormatDate' => 'l, j F Y', 'replace_indo' => true ));
 	function GetFormatDate($String, $Param = array()) {
 		if ($String == '0000-00-00' || empty($String)) {
 			return '';
         }
 		
 		$Param['FormatDate'] = (isset($Param['FormatDate'])) ? $Param['FormatDate'] : "F d, Y";
+		$result = date($Param['FormatDate'], strtotime($String));
 		
-		return date($Param['FormatDate'], strtotime($String));
+		if (isset($Param['replace_indo']) && $Param['replace_indo']) {
+			$array_source = array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'January', 'February', 'March', 'May', 'June', 'July', 'August', 'October', 'December' );
+			$array_replace = array( 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum`at', 'Sabtu', 'Minggu', 'Januari', 'Februari', 'Maret', 'Mei', 'Juni', 'Juli', 'Agustus', 'Oktober', 'Desember' );
+			$result = str_replace($array_source, $array_replace, $result);
+		}
+		
+		return $result;
 	}
 }
 

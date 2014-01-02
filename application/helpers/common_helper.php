@@ -281,24 +281,18 @@
 				
                 $StringFilter = "";
                 if ( $Param['sSearch'] != "" ) {
-                    $StringFilter = "AND (";
-                    $aWords = preg_split('/\s+/', $Param['sSearch']);
-                    for ($j = 0; $j < count($aWords); $j++) {
-                        if ( $aWords[$j] != "" ) {
-                            $StringFilter .= "(";
-                            for ($i = 0; $i < count($ReplaceField); $i++) {
-								$field_name = (isset($field_replace[$ReplaceField[$i]])) ? $field_replace[$ReplaceField[$i]] : $ReplaceField[$i];
-								if (empty($field_name)) {
-									continue;
-								}
-								
-                                $StringFilter .= $field_name." LIKE '%".mysql_real_escape_string( $aWords[$j] )."%' OR ";
-                            }
-                            $StringFilter = substr_replace( $StringFilter, "", -3 );
-                            $StringFilter .= ") AND ";
-                        }
-                    }
-                    
+                    $StringFilter  = "AND (";
+					$StringFilter .= "(";
+					for ($i = 0; $i < count($ReplaceField); $i++) {
+						$field_name = (isset($field_replace[$ReplaceField[$i]])) ? $field_replace[$ReplaceField[$i]] : $ReplaceField[$i];
+						if (empty($field_name)) {
+							continue;
+						}
+						
+						$StringFilter .= $field_name." LIKE '%".mysql_real_escape_string( $Param['sSearch'] )."%' OR ";
+					}
+					$StringFilter = substr_replace( $StringFilter, "", -3 );
+					$StringFilter .= ") AND ";
                     $StringFilter = substr_replace( $StringFilter, "", -5 );
                     $StringFilter .= ")";
                 }

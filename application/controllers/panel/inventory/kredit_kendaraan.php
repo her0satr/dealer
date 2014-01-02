@@ -14,7 +14,7 @@ class kredit_kendaraan extends DEALER_Controller {
 		
 		$_POST['kredit_penjualan_grid'] = 1;
 		$_POST['user_type_id'] = $user['user_type_id'];
-		$_POST['column'] = array( 'sales_name', 'jenis_unit_name', 'jenis_pembayaran_name', 'order_date_swap', 'status_penjualan_name' );
+		$_POST['column'] = array( 'sales_name', 'jenis_unit_name', 'name', 'order_date_swap', 'status_penjualan_name' );
 		
 		$array = $this->Penjualan_model->get_array($_POST);
 		$count = $this->Penjualan_model->get_count();

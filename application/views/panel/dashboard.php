@@ -1,11 +1,18 @@
 <?php
+	$user = $this->User_model->get_session();
+	
 	$array_jenis_unit = $this->Jenis_Unit_model->get_array();
 	$array_jenis_warna = $this->Jenis_Warna_model->get_array();
 	$array_jenis_leasing = $this->Jenis_Leasing_model->get_array();
 	$array_jenis_angsuran = $this->Jenis_Angsuran_model->get_array();
 	$array_jenis_pembayaran = $this->Jenis_Pembayaran_model->get_array();
 	
-	$page_data = array();
+	// chart
+	$array_rekap_yearly = $this->Penjualan_model->get_rekap_yearly();
+	
+	$page_data['user_type_id'] = $user['user_type_id'];
+	$page_data['array_rekap_yearly'] = $array_rekap_yearly;
+	$page_data['USER_ID_ADMINISTRATOR'] = USER_ID_ADMINISTRATOR;
 ?>
 <?php $this->load->view( 'panel/common/meta', array( 'title' => 'Selamat Datang' ) ); ?>
 
@@ -24,7 +31,24 @@
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
-
+				
+				<?php if ($user['user_type_id'] == USER_ID_ADMINISTRATOR) { ?>
+				<div class="widget">
+					<div class="widget-head">
+						<div class="pull-left">Rekap Penjualan 12 Bulan Terakhir</div>
+						<div class="widget-icons pull-right">
+							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+						</div>  
+						<div class="clearfix"></div>
+					</div>
+					<div class="widget-content">
+						<div class="padd">
+							<div id="chart-summary"></div>
+						</div>
+					</div>
+				</div>
+				<?php } else { ?>
 				<div class="widget" id="form-kredit-kendaraan">
 					<div class="widget-head">
 						<div class="pull-left">Form Penjualan</div>
@@ -155,6 +179,7 @@
 						</form></div>
 					</div>
 				</div>
+				<?php } ?>
 				
 			</div></div>
         </div></div>
@@ -167,34 +192,67 @@
 
 <script>
 $(document).ready(function() {
-	$('#form-kredit-kendaraan form').validate({
-		rules: {
-			jenis_unit_id: { required: true },
-			jenis_warna_id: { required: true },
-			jenis_pembayaran_id: { required: true },
-			name: { required: true },
-			phone: { required: true },
-			address: { required: true },
-			birth_place: { required: true },
-			birth_date: { required: true }
+	var page = {
+		init: function() {
+			var temp = $('.cnt-data').html();
+			eval('var data = ' + temp);
+			page.data = data;
+			
+			a = page;
+			page = a;
 		}
-	});
-	$('#form-kredit-kendaraan form').submit(function() {
-		if (! $('#form-kredit-kendaraan form').valid()) {
-			return false;
-		}
-		
-		var param = Site.Form.GetValue('form-kredit-kendaraan');
-		param.birth_date = Func.SwapDate(param.birth_date);
-		Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: param, callback: function(result) {
-			if (result.status == 1) {
-				$('#form-kredit-kendaraan form')[0].reset();
-				noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 2500 });
+	}
+	page.init();
+	
+	if ($('#chart-summary').length == 1) {
+		Morris.Line({
+			element: 'chart-summary',
+			/*
+			data: [
+				{ ym: '200501', revo: 150, mio: 90 },
+				{ ym: '200502', revo: 75,  mio: 65 },
+				{ ym: '200503', revo: 50,  mio: 40 },
+				{ ym: '200504', revo: 75,  mio: 65 },
+				{ ym: '200505', revo: 50,  mio: 40 }
+			],
+			/*	*/
+			data: page.data.array_rekap_yearly.data,
+			xkey: 'ym',
+			ykeys: [ 'blade' ],
+			labels: [ 'Blade' ]
+		});
+	}
+	
+	if ($('#form-kredit-kendaraan').length == 1) {
+		$('#form-kredit-kendaraan form').validate({
+			rules: {
+				jenis_unit_id: { required: true },
+				jenis_warna_id: { required: true },
+				jenis_pembayaran_id: { required: true },
+				name: { required: true },
+				phone: { required: true },
+				address: { required: true },
+				birth_place: { required: true },
+				birth_date: { required: true }
 			}
-		} });
-		
-		return false;
-	});
+		});
+		$('#form-kredit-kendaraan form').submit(function() {
+			if (! $('#form-kredit-kendaraan form').valid()) {
+				return false;
+			}
+			
+			var param = Site.Form.GetValue('form-kredit-kendaraan');
+			param.birth_date = Func.SwapDate(param.birth_date);
+			Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: param, callback: function(result) {
+				if (result.status == 1) {
+					$('#form-kredit-kendaraan form')[0].reset();
+					noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 2500 });
+				}
+			} });
+			
+			return false;
+		});
+	}
 });
 </script>
 </body>

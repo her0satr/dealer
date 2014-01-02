@@ -1,16 +1,50 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 26, 2013 at 08:24 AM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: Jan 02, 2014 at 09:30 PM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `dealer_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE IF NOT EXISTS `invoice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `penjualan_id` int(11) NOT NULL,
+  `no` varchar(5) NOT NULL,
+  `rupiah_angka` int(11) NOT NULL,
+  `rupiah_text` longtext NOT NULL,
+  `pengantar` varchar(255) NOT NULL,
+  `penerima` int(11) NOT NULL,
+  `content` longtext NOT NULL,
+  `date_print` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`id`, `penjualan_id`, `no`, `rupiah_angka`, `rupiah_text`, `pengantar`, `penerima`, `content`, `date_print`) VALUES
+(2, 11, '00001', 250000, 'Dua Ratus Ribu Rupiah 2', 'Saya', 2, '', '2014-01-02'),
+(3, 0, '00002', 300000, 'Tiga Ratus Ribu Rupiah', 'Orangnya', 2, '125487', '2014-01-02');
 
 -- --------------------------------------------------------
 
@@ -157,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `kendaraan` (
   `stock_update` int(11) NOT NULL,
   `stock_total` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `kendaraan`
@@ -175,7 +209,8 @@ INSERT INTO `kendaraan` (`id`, `penjualan_id`, `jenis_unit_id`, `jenis_warna_id`
 (15, 9, 13, 2, '2013-12-25', -1, 0),
 (16, 0, 13, 2, '2013-12-25', 5, 5),
 (17, 10, 13, 2, '2013-12-25', -1, 4),
-(18, 11, 13, 2, '2013-12-26', -1, 3);
+(18, 11, 13, 2, '2013-12-26', -1, 3),
+(19, 12, 13, 2, '2014-01-02', -1, 2);
 
 -- --------------------------------------------------------
 
@@ -220,29 +255,37 @@ CREATE TABLE IF NOT EXISTS `penjualan` (
   `nik` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `birth_date` date NOT NULL,
+  `birth_place` varchar(255) NOT NULL,
+  `address` longtext NOT NULL,
+  `price_otr` int(11) NOT NULL,
+  `price_angsuran` int(11) NOT NULL,
   `discount` int(11) NOT NULL,
   `dp_customer` int(11) NOT NULL,
   `dp_gross` int(11) NOT NULL,
   `sub` int(11) NOT NULL,
   `is_deliver` int(11) NOT NULL,
+  `with_ktp` int(11) NOT NULL,
+  `with_gesek` int(11) NOT NULL,
+  `with_bast` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id`, `sales_id`, `admin_id`, `user_delivery_id`, `jenis_unit_id`, `jenis_warna_id`, `jenis_leasing_id`, `jenis_angsuran_id`, `jenis_pembayaran_id`, `status_penjualan_id`, `order_date`, `name`, `nik`, `phone`, `birth_date`, `discount`, `dp_customer`, `dp_gross`, `sub`, `is_deliver`) VALUES
-(2, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-24', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
-(3, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 0),
-(4, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 0),
-(5, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
-(6, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
-(7, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 0),
-(8, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
-(9, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
-(10, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1),
-(11, 2, 2, 2, 13, 2, 4, 0, 1, 2, '2013-12-26', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', 0, 1000000, 100000, 0, 1);
+INSERT INTO `penjualan` (`id`, `sales_id`, `admin_id`, `user_delivery_id`, `jenis_unit_id`, `jenis_warna_id`, `jenis_leasing_id`, `jenis_angsuran_id`, `jenis_pembayaran_id`, `status_penjualan_id`, `order_date`, `name`, `nik`, `phone`, `birth_date`, `birth_place`, `address`, `price_otr`, `price_angsuran`, `discount`, `dp_customer`, `dp_gross`, `sub`, `is_deliver`, `with_ktp`, `with_gesek`, `with_bast`) VALUES
+(2, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-24', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
+(3, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 0, 0, 0, 0),
+(4, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 0, 0, 0, 0),
+(5, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
+(6, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
+(7, 2, 2, 0, 13, 2, 4, 1, 2, 3, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 0, 0, 0, 0),
+(8, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
+(9, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
+(10, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
+(11, 2, 2, 2, 13, 2, 4, 0, 1, 2, '2013-12-26', 'Pembeli No 12', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
+(12, 2, 2, 0, 13, 2, 0, 0, 1, 2, '2014-01-02', 'Sales 1', '-', '0341', '2014-01-02', 'Malang', '-', 0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -282,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `register_date` datetime NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `user`
@@ -290,8 +333,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `address`, `thumbnail`, `register_date`, `is_active`) VALUES
 (2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2013/12/26/20131226_103710_8567.png', '2013-10-17 03:17:56', 1),
-(4, 1, 'eddy@yahoo.com', 'admin', 'fe30fa79056939db8cbe99c8d601de74', '3', '', '2013-12-17 06:02:58', 1),
-(7, 1, 'daniel.resjanto@gmail.com', 'daniel', '', 'jalan bla bla bla malang', '', '2013-12-24 11:37:31', 1);
+(4, 1, 'mail@mail.com', '12345', '', '3', '', '2013-12-17 06:02:58', 1),
+(6, 1, 'suekarea@yahoo.com', 'suekarea', '1621a5dc746d5d19665ed742b2ef9736', '-', '', '2013-12-19 18:59:27', 1);
 
 -- --------------------------------------------------------
 
