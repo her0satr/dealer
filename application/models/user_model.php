@@ -114,24 +114,86 @@ class User_model extends CI_Model {
 		return $row;
 	}
 	
-	function get_menu() {
-		$menu = array(
+	function get_menu($param = array()) {
+		$array_menu = array(
 			array(
-				'Title' => 'User Management',
-				'Child' => array(
-					array( 'Title' => 'User', 'Link' => base_url('panel/user/user') )
+				'name' => 'inventory',
+				'title' => 'Inventory',
+				'user_type_id' => array( 1, 2, 3, 4 ),
+				'children' => array(
+					array( 'name' => 'kendaraan_masuk', 'title' => 'Kendaraan Masuk', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'kredit_kendaraan', 'title' => 'Penjualan Kendaraan', 'user_type_id' => array( 1, 2, 3, 4 ) )
 				)
 			),
 			array(
-				'Title' => 'Master',
-				'Child' => array(
-					array( 'Title' => 'Page Static', 'Link' => base_url('panel/master/page_static') ),
-					array( 'Title' => 'Category', 'Link' => base_url('panel/master/category') )
+				'name' => 'report',
+				'title' => 'Laporan',
+				'user_type_id' => array( 1, 2, 3, 4 ),
+				'children' => array(
+					array( 'name' => 'stock_kendaraan', 'title' => 'Stock Kendaraan', 'user_type_id' => array( 1, 2, 3, 4 ) ),
+					array( 'name' => 'rekap_penjualan', 'title' => 'Rekap Penjualan', 'user_type_id' => array( 1, 2, 3, 4 ) ),
+					array( 'name' => 'rekap_sales', 'title' => 'Penjualan Sales', 'user_type_id' => array( 1, 2, 3, 4 ) )
+				)
+			),
+			array(
+				'name' => 'website',
+				'title' => 'Website',
+				'user_type_id' => array( 1 ),
+				'children' => array(
+					array( 'name' => 'page_static', 'title' => 'Page Statis', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'blog', 'title' => 'Blog', 'user_type_id' => array( 1 ) )
+				)
+			),
+			array(
+				'name' => 'member',
+				'title' => 'Member',
+				'user_type_id' => array( 1 ),
+				'children' => array(
+					array( 'name' => 'user', 'title' => 'User', 'user_type_id' => array( 1 ) )
+				)
+			),
+			array(
+				'name' => 'master',
+				'title' => 'Master',
+				'user_type_id' => array( 1 ),
+				'children' => array(
+					array( 'name' => 'jenis_unit', 'title' => 'Jenis Unit', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'jenis_warna', 'title' => 'Jenis Warna', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'jenis_leasing', 'title' => 'Jenis Leasing', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'jenis_angsuran', 'title' => 'Jenis Angsuran', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'jenis_pembayaran', 'title' => 'Jenis Pembayaran', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'jenis_waktu_kredit', 'title' => 'Jenis Waktu Kredit', 'user_type_id' => array( 1 ) )
 				)
 			)
 		);
 		
-		return $menu;
+		// testing
+		// $param['user_type_id'] = 2;
+		
+		$result = $array_menu;
+		if (!empty($param['user_type_id'])) {
+			$result = array();
+			
+			// set parent
+			foreach ($array_menu as $key => $parent) {
+				if (in_array($param['user_type_id'], $parent['user_type_id'])) {
+					$result_temp = $parent;
+					$result_temp['children'] = array();
+					
+					// set childen
+					foreach ($parent['children'] as $children) {
+						if (in_array($param['user_type_id'], $children['user_type_id'])) {
+							$result_temp['children'][] = $children;
+						}
+					}
+					
+					// add to result
+					$result[] = $result_temp;
+				}
+			}
+		}
+		
+		return $result;
 	}
 	
 	/*	Region Session */

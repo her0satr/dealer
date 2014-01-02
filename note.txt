@@ -1,1 +1,29 @@
 pencarian di Stock Kendaraan masih gagal, perlu ada option untuk ignore filter
+
+--------------------------------------------------------------------------------------------------------
+DEALER
+--------------------------------------------------------------------------------------------------------
+DONE :
+1. Dashboard Sales
+   - Form Penjualan Sales seperti di SWF
+
+2. User Role
+   - Admin, Sales, Penagihan, Delivery
+   - Sales cuma bisa lihat Inventory => Kredit Kendaraan & Laporan (all)
+   - Admin bisa mengakses semuanya
+   - Admin bisa edit (Inventory => Kredit Kendaraan) yang statusnya sudah di update
+
+3. Form Kredit Penjualan
+   - untuk admin inputnya kurang check box, KTP, Gesek, Bast (lihat swf)
+   - entryan by eddy tidak bisa di edit
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+4. Form Penagihan
+   - Cetak Kwintasi (ada 2 jenis)
+
+5. Dashboard Admin
+   - Rekap Penjualan selama setahun terakhir seperti yang di excel
+
+6. Website
+   - sesimpel mungkin seperti yang di swf
+   - hanya bisa di akses oleh user yang sudah login
+   - halaman index pertama kali di lempar ke panel untuk login

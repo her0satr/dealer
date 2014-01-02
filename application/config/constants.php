@@ -24,6 +24,7 @@ define('STATUS_PENJUALAN_DITOLAK',				3);
 define('JENIS_PEMBAYARAN_TUNAI',				1);
 define('JENIS_PEMBAYARAN_KREDIT',				2);
 
+define('INVOICE',								'invoice');
 define('KENDARAAN',								'kendaraan');
 define('JENIS_ANGSURAN',						'jenis_angsuran');
 define('JENIS_LEASING',							'jenis_leasing');

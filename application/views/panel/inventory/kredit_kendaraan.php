@@ -7,6 +7,8 @@
 	$array_jenis_pembayaran = $this->Jenis_Pembayaran_model->get_array();
 	
 	$page_data['user_id'] = $user['id'];
+	$page_data['user_type_id'] = $user['user_type_id'];
+	$page_data['USER_ID_ADMINISTRATOR'] = USER_ID_ADMINISTRATOR;
 	$page_data['STATUS_PENJUALAN_PENDING'] = STATUS_PENJUALAN_PENDING;
 	$page_data['STATUS_PENJUALAN_DITOLAK'] = STATUS_PENJUALAN_DITOLAK;
 ?>
@@ -17,6 +19,36 @@
 <div class="content">
 	<?php $this->load->view( 'panel/common/sidebar'); ?>
 	<div class="hide cnt-data"><?php echo json_encode($page_data); ?></div>
+	
+	<div id="form-confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog"><div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Form Persetujuan Kredit</h4>
+			</div>
+			<div class="modal-body"><form class="form-horizontal">
+				<input type="hidden" name="id" value="0" />
+				<input type="hidden" name="action" value="update_approve" />
+				
+				<div class="form-group">
+					<label class="col-lg-2 control-label">KTP</label>
+					<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_ktp" value="1" /></label></div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Gesek</label>
+					<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_gesek" value="1" /></label></div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">BAST</label>
+					<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_bast" value="1" /></label></div>
+				</div>
+			</form></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+				<button type="button" class="btn btn-primary">Update</button>
+			</div>
+		</div></div>
+	</div>
 	
   	<div class="mainbar">
 	    <div class="page-head">
@@ -99,25 +131,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Lama Angsuran</label>
+								<label class="col-lg-2 control-label">Nama Konsumen</label>
 								<div class="col-lg-10">
-									<select class="form-control" name="jenis_angsuran_id">
-										<?php echo ShowOption(array( 'Array' => $array_jenis_angsuran )); ?>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-2 control-label">Jenis Leasing</label>
-								<div class="col-lg-10">
-									<select class="form-control" name="jenis_leasing_id">
-										<?php echo ShowOption(array( 'Array' => $array_jenis_leasing )); ?>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-2 control-label">Nama</label>
-								<div class="col-lg-10">
-									<input type="text" name="name" class="form-control" placeholder="Nama" />
+									<input type="text" name="name" class="form-control" placeholder="Nama Konsumen" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -127,9 +143,15 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Telepon / HP</label>
+								<label class="col-lg-2 control-label">No Telepon / HP</label>
 								<div class="col-lg-10">
-									<input type="text" name="phone" class="form-control" placeholder="Telepon / HP" />
+									<input type="text" name="phone" class="form-control" placeholder="No Telepon / HP" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Tempat Lahir</label>
+								<div class="col-lg-10">
+									<input type="text" name="birth_place" class="form-control" placeholder="Tempat Lahir" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -142,9 +164,43 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Potongan</label>
+								<label class="col-lg-2 control-label">Alamat</label>
 								<div class="col-lg-10">
-									<input type="text" name="discount" class="form-control" placeholder="Potongan" />
+									<textarea class="form-control" rows="3" name="address" placeholder="Alamat"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Harga OTR</label>
+								<div class="col-lg-10">
+									<input type="text" name="price_otr" class="form-control" placeholder="Harga OTR" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Lama Angsuran</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="jenis_angsuran_id">
+										<?php echo ShowOption(array( 'Array' => $array_jenis_angsuran )); ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Angsuran</label>
+								<div class="col-lg-10">
+									<input type="text" name="price_angsuran" class="form-control" placeholder="Angsuran" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Jenis Leasing</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="jenis_leasing_id">
+										<?php echo ShowOption(array( 'Array' => $array_jenis_leasing )); ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Potongan Penjualan</label>
+								<div class="col-lg-10">
+									<input type="text" name="discount" class="form-control" placeholder="Potongan Penjualan" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -230,14 +286,18 @@ $(document).ready(function() {
 					$('#form-kredit-kendaraan [name="name"]').val(result.name);
 					$('#form-kredit-kendaraan [name="nik"]').val(result.nik);
 					$('#form-kredit-kendaraan [name="phone"]').val(result.phone);
+					$('#form-kredit-kendaraan [name="address"]').val(result.address);
+					$('#form-kredit-kendaraan [name="birth_place"]').val(result.birth_place);
 					$('#form-kredit-kendaraan [name="birth_date"]').val(Func.SwapDate(result.birth_date));
+					$('#form-kredit-kendaraan [name="price_otr"]').val(result.price_otr);
+					$('#form-kredit-kendaraan [name="price_angsuran"]').val(result.price_angsuran);
 					$('#form-kredit-kendaraan [name="discount"]').val(result.discount);
 					$('#form-kredit-kendaraan [name="dp_customer"]').val(result.dp_customer);
 					$('#form-kredit-kendaraan [name="dp_gross"]').val(result.dp_gross);
 					$('#form-kredit-kendaraan [name="sub"]').val(result.sub);
 					
 					// editable only for pending status
-					if (result.status_penjualan_id != page.data.STATUS_PENJUALAN_PENDING) {
+					if (result.status_penjualan_id != page.data.STATUS_PENJUALAN_PENDING && page.data.user_type_id != page.data.USER_ID_ADMINISTRATOR) {
 						$('#form-kredit-kendaraan .form-btn [type="submit"]').hide();
 					} else {
 						$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
@@ -251,21 +311,19 @@ $(document).ready(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);
 				
-				var param = {
-					action: 'update_approve',
-					id: record.id,
-					order_date: record.order_date,
-					jenis_unit_id: record.jenis_unit_id,
-					jenis_warna_id: record.jenis_warna_id
-				};
-				Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: param, callback: function(result) {
-					if (result.status == 1) {
-						dt.reload();
-						noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 1500 });
-					} else {
-						noty({ text: result.message, layout: 'topRight', type: 'warning', timeout: 1500 });
-					}
-				} });
+				// populate data
+				$('#form-confirm [name="id"]').val(record.id);
+				$('#form-confirm [name="with_ktp"], #form-confirm [name="with_gesek"], #form-confirm [name="with_bast"]').attr('checked', false);
+				if (record.with_ktp == 1) {
+					$('#form-confirm [name="with_ktp"]').click();
+				}
+				if (record.with_gesek == 1) {
+					$('#form-confirm [name="with_gesek"]').click();
+				}
+				if (record.with_bast == 1) {
+					$('#form-confirm [name="with_bast"]').click();
+				}
+				$('#form-confirm').modal();
 			});
 			
 			$('#datatable .btn-reject').click(function() {
@@ -315,6 +373,13 @@ $(document).ready(function() {
 					noty({ text: 'Data sudah diproses tidak dapat dihapus / diubah.', layout: 'topRight', type: 'success', timeout: 1500 });
 				}
 			});
+			
+			$('#datatable .btn-invoice').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				window.location = web.host + 'panel/inventory/invoice/?id=' + record.id;
+			});
 		}
 	}
 	dt = Func.init_datatable(param);
@@ -335,6 +400,8 @@ $(document).ready(function() {
 			jenis_pembayaran_id: { required: true },
 			name: { required: true },
 			phone: { required: true },
+			address: { required: true },
+			birth_place: { required: true },
 			birth_date: { required: true }
 		}
 	});
@@ -354,6 +421,23 @@ $(document).ready(function() {
 		} });
 		
 		return false;
+	});
+	
+	// form confirm
+	$('#form-confirm .btn-primary').click(function() {
+		var param = Site.Form.GetValue('form-confirm');
+		param.with_ktp = ($('[name="with_ktp"]').is(':checked')) ? 1 : 0;
+		param.with_gesek = ($('[name="with_gesek"]').is(':checked')) ? 1 : 0;
+		param.with_bast = ($('[name="with_bast"]').is(':checked')) ? 1 : 0;
+		Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: param, callback: function(result) {
+			if (result.status == 1) {
+				dt.reload();
+				$('#form-confirm').modal('hide');
+				noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 1500 });
+			} else {
+				noty({ text: result.message, layout: 'topRight', type: 'warning', timeout: 1500 });
+			}
+		} });
 	});
 	
 	page.init();

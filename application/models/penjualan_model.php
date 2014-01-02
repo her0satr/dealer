@@ -6,7 +6,8 @@ class Penjualan_model extends CI_Model {
 		
         $this->field = array(
 			'id', 'sales_id', 'jenis_unit_id', 'jenis_warna_id', 'jenis_leasing_id', 'jenis_angsuran_id', 'jenis_pembayaran_id', 'status_penjualan_id', 'name', 'nik',
-			'phone', 'birth_date', 'discount', 'dp_customer', 'dp_gross', 'sub', 'is_deliver', 'order_date', 'admin_id', 'user_delivery_id'
+			'phone', 'birth_date', 'discount', 'dp_customer', 'dp_gross', 'sub', 'is_deliver', 'order_date', 'admin_id', 'user_delivery_id', 'birth_place', 'address',
+			'price_otr', 'price_angsuran', 'with_ktp', 'with_gesek', 'with_bast'
 		);
     }
 
@@ -176,7 +177,7 @@ class Penjualan_model extends CI_Model {
 		$row['order_date_swap'] = ExchangeFormatDate($row['order_date']);
 		
 		// status penjualan
-		if ($row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA) {
+		if (!empty($row['status_penjualan_name']) && $row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA) {
 			$row['status_penjualan_name'] .= (empty($row['is_deliver'])) ? '' : ' - Terkirim';
 		}
 		
@@ -199,6 +200,11 @@ class Penjualan_model extends CI_Model {
 				// delete button
 				if($row['status_penjualan_id'] == STATUS_PENJUALAN_PENDING) {
 					$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
+				}
+				
+				// invoice
+				if (@$param['user_type_id'] == USER_ID_ADMINISTRATOR && $row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA) {
+					$param['is_custom'] .= '<button class="btn btn-xs btn-invoice btn-success"><i class="fa fa-file"></i></button> ';
 				}
 			}
 			

@@ -1,6 +1,6 @@
 <?php
-	// parent active having class "open"
-	// child active having class "active"
+	$user = $this->User_model->get_session();
+	$array_menu = $this->User_model->get_menu(array( 'user_type_id' => $user['user_type_id'] ));
 ?>
 
 <div class="sidebar" id="cnt-sidebar">
@@ -11,7 +11,20 @@
 	</form>
 	
 	<ul id="nav">
-		<li><a href="index.html"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+		<li><a href="<?php echo base_url('panel/home/dashboard'); ?>"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+		
+		<?php foreach ($array_menu as $parent) { ?>
+		<li class="has_sub">
+			<a href="#" data-link="<?php echo $parent['name']; ?>"><i class="fa fa-folder"></i><span><?php echo $parent['title']; ?></span><span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
+			<ul>
+				<?php foreach ($parent['children'] as $children) { ?>
+				<li><a data-link="<?php echo $children['name']; ?>" href="<?php echo base_url('panel/'.$parent['name'].'/'.$children['name']); ?>"><?php echo $children['title']; ?></a></li>
+				<?php } ?>
+			</ul>
+		</li>
+		<?php } ?>
+		
+		<!--
 		<li class="has_sub">
 			<a href="#" data-link="inventory"><i class="fa fa-folder"></i><span>Inventory</span><span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
 			<ul>
@@ -35,9 +48,9 @@
 			</ul>
 		</li>
 		<li class="has_sub">
-			<a href="#" data-link="member" class="open"><i class="fa fa-folder"></i><span>Member</span><span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
+			<a href="#" data-link="member"><i class="fa fa-folder"></i><span>Member</span><span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
 			<ul>
-				<li><a data-link="user" href="<?php echo base_url('panel/member/user'); ?>" class="active">User</a></li>
+				<li><a data-link="user" href="<?php echo base_url('panel/member/user'); ?>">User</a></li>
 			</ul>
 		</li>
 		<li class="has_sub">
@@ -51,13 +64,15 @@
 				<li><a data-link="jenis_waktu_kredit" href="<?php echo base_url('panel/master/jenis_waktu_kredit'); ?>">Jenis Waktu Kredit</a></li>
 			</ul>
 		</li>
+		-->
 	</ul>
 </div>
 
 <script>
-	$('#cnt-sidebar').find('.open').removeClass('open');
-	$('#cnt-sidebar').find('.active').removeClass('active');
+	// parent active having class "open"
+	// child active having class "active"
 	
+	// set active menu from link location
 	var link = window.location.href;
 	var string_match = link.match(new RegExp('panel\/([a-z0-9\_]+)(\/([a-z0-9\_]+))?', 'gi'));
 	if (typeof(string_match) != 'undefined') {

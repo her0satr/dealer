@@ -35,30 +35,34 @@ class kredit_kendaraan extends DEALER_Controller {
 				$_POST['sales_id'] = $user['id'];
 				$_POST['status_penjualan_id'] = STATUS_PENJUALAN_PENDING;
 				$_POST['order_date'] = $this->config->item('current_date');
-			} else {
-				$_POST['admin_id'] = $user['id'];
 			}
 			
 			$result = $this->Penjualan_model->update($_POST);
 		}
 		else if ($action == 'update_approve') {
-			// reduce inventory
-			$param_kendaraan['stock_date'] = $_POST['order_date'];
-			$param_kendaraan['stock_update'] = -1;
-			$param_kendaraan['penjualan_id'] = $_POST['id'];
-			$param_kendaraan['jenis_unit_id'] = $_POST['jenis_unit_id'];
-			$param_kendaraan['jenis_warna_id'] = $_POST['jenis_warna_id'];
-			$result_inventory = $this->Kendaraan_model->update_total($param_kendaraan);
-			if ($result_inventory['status'] == false) {
-				echo json_encode($result_inventory);
-				exit;
-			}
+			$result = $this->Penjualan_model->update($_POST);
 			
-			// update penjualan
-			$param_update['id'] = $_POST['id'];
-			$param_update['admin_id'] = $user['id'];
-			$param_update['status_penjualan_id'] = STATUS_PENJUALAN_DITERIMA;
-			$result = $this->Penjualan_model->update($param_update);
+			if ($_POST['with_ktp'] && $_POST['with_gesek'] && $_POST['with_bast']) {
+				$penjualan = $this->Penjualan_model->get_by_id(array( 'id' => $_POST['id'] ));
+				
+				// reduce inventory
+				$param_kendaraan['stock_date'] = $penjualan['order_date'];
+				$param_kendaraan['stock_update'] = -1;
+				$param_kendaraan['penjualan_id'] = $_POST['id'];
+				$param_kendaraan['jenis_unit_id'] = $penjualan['jenis_unit_id'];
+				$param_kendaraan['jenis_warna_id'] = $penjualan['jenis_warna_id'];
+				$result_inventory = $this->Kendaraan_model->update_total($param_kendaraan);
+				if ($result_inventory['status'] == false) {
+					echo json_encode($result_inventory);
+					exit;
+				}
+				
+				// update penjualan
+				$param_update['id'] = $_POST['id'];
+				$param_update['admin_id'] = $user['id'];
+				$param_update['status_penjualan_id'] = STATUS_PENJUALAN_DITERIMA;
+				$result = $this->Penjualan_model->update($param_update);
+			}
 		}
 		else if ($action == 'update_delivery') {
 			$_POST['user_delivery_id'] = $user['id'];

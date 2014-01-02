@@ -59,6 +59,9 @@ a:hover,a:active,a:focus {
 	outline: 0;
 }
 
+.clear {
+	clear: both;
+}
 .bold{
 	font-weight: bold;
 }
@@ -1040,7 +1043,7 @@ header .nav.nav-pills > li > a:hover, header .nav.nav-pills > li > a:focus{
 	background:#EEEFF2;
 	border-left: 1px solid #ccc;
 	z-index: 50;
-	min-width: 650px;
+	min-width: 500px;
 	min-height: 800px;
 }
 
