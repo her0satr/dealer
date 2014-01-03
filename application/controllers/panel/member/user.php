@@ -11,7 +11,7 @@ class user extends DEALER_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'email', 'fullname', 'is_active' );
+		$_POST['column'] = array( 'email', 'fullname', 'user_type_name', 'is_active' );
 		
 		$array = $this->User_model->get_array($_POST);
 		$count = $this->User_model->get_count();

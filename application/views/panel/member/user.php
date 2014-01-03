@@ -39,6 +39,7 @@
 								<tr>
 									<th>Email</th>
 									<th>Fullname</th>
+									<th>Jenis User</th>
 									<th>Active</th>
 									<th>Control</th></tr>
 							</thead>
@@ -176,7 +177,7 @@ $(document).ready(function() {
 	var param = {
 		id: 'datatable',
 		source: web.host + 'panel/member/user/grid',
-		column: [ { }, { }, { bSortable: false, sClass: 'center' }, { bSortable: false, sClass: 'center' } ],
+		column: [ { }, { }, { }, { bSortable: false, sClass: 'center' }, { bSortable: false, sClass: 'center' } ],
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();

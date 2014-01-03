@@ -58,6 +58,8 @@ class User_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['user_type_name'] = 'UserType.name';
+		
 		$string_namelike = (!empty($param['namelike'])) ? "AND User.email LIKE '%".$param['namelike']."%'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'name ASC');
