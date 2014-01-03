@@ -129,7 +129,7 @@ if (! function_exists('GetFormatDate')) {
 		
 		if (isset($Param['replace_indo']) && $Param['replace_indo']) {
 			$array_source = array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'January', 'February', 'March', 'May', 'June', 'July', 'August', 'October', 'December' );
-			$array_replace = array( 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum`at', 'Sabtu', 'Minggu', 'Januari', 'Februari', 'Maret', 'Mei', 'Juni', 'Juli', 'Agustus', 'Oktober', 'Desember' );
+			$array_replace = array( 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu', 'Minggu', 'Januari', 'Februari', 'Maret', 'Mei', 'Juni', 'Juli', 'Agustus', 'Oktober', 'Desember' );
 			$result = str_replace($array_source, $array_replace, $result);
 		}
 		

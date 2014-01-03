@@ -351,18 +351,14 @@ $(document).ready(function(){
 
 /* Date picker */
 
-  $(function() {
-    $('.datepicker').datetimepicker({
-      pickTime: false
-    });
-  });
-
-   $(function() {
-    $('#datetimepicker2').datetimepicker({
-      pickDate: false
-    });
-  });
-
+$(function() {
+	$('.datepicker').datetimepicker({
+		pickTime: false
+	});
+	$('.timepicker').datetimepicker({
+		pickDate: false
+	});
+});
 
 
 

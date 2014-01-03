@@ -11,3 +11,5 @@
 - CREATE TABLE IF NOT EXISTS `invoice` ( `id` int(11) NOT NULL AUTO_INCREMENT, `penjualan_id` int(11) NOT NULL, `no` varchar(5) NOT NULL, `rupiah_angka` int(11) NOT NULL, `rupiah_text` longtext NOT NULL, `pengantar` varchar(255) NOT NULL, `penerima` int(11) NOT NULL, `date_print` date NOT NULL, PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 - ALTER TABLE `invoice` ADD `content` LONGTEXT NOT NULL AFTER `penerima`
+- CREATE TABLE IF NOT EXISTS `event` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `content` longtext NOT NULL, `thumbnail` varchar(255) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+- CREATE TABLE IF NOT EXISTS `schedule` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `location` varchar(255) NOT NULL, `schedule_time` datetime NOT NULL, PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

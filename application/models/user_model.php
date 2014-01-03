@@ -141,8 +141,8 @@ class User_model extends CI_Model {
 				'title' => 'Website',
 				'user_type_id' => array( 1 ),
 				'children' => array(
-					array( 'name' => 'page_static', 'title' => 'Page Statis', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'blog', 'title' => 'Blog', 'user_type_id' => array( 1 ) )
+					array( 'name' => 'event', 'title' => 'Event', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'schedule', 'title' => 'Jadwal', 'user_type_id' => array( 1 ) )
 				)
 			),
 			array(

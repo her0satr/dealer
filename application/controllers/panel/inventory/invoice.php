@@ -46,6 +46,10 @@ class invoice extends DEALER_Controller {
 	}
 	
 	function cetak() {
-		$this->load->view( 'panel/inventory/invoice_cetak' );
+		$this->load->library('mpdf');
+		
+		$invoice_html = $this->load->view( 'panel/inventory/invoice_cetak', array( ), true );
+		$this->mpdf->WriteHTML($invoice_html);
+		$this->mpdf->Output();
 	}
 }

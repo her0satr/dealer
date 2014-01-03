@@ -24,6 +24,7 @@ define('STATUS_PENJUALAN_DITOLAK',				3);
 define('JENIS_PEMBAYARAN_TUNAI',				1);
 define('JENIS_PEMBAYARAN_KREDIT',				2);
 
+define('EVENT',									'event');
 define('INVOICE',								'invoice');
 define('KENDARAAN',								'kendaraan');
 define('JENIS_ANGSURAN',						'jenis_angsuran');
@@ -34,6 +35,7 @@ define('JENIS_WAKTU_KREDIT',					'jenis_waktu_kredit');
 define('JENIS_WARNA',							'jenis_warna');
 define('PAGE_STATIC',							'page_static');
 define('PENJUALAN',								'penjualan');
+define('SCHEDULE',								'schedule');
 define('STATUS_PENJUALAN',						'status_penjualan');
 define('USER',									'user');
 define('USER_TYPE',								'user_type');

@@ -9,6 +9,7 @@
 	
 	// chart
 	$array_rekap_yearly = $this->Penjualan_model->get_rekap_yearly();
+//	print_r($array_rekap_yearly); exit;
 	
 	$page_data['user_type_id'] = $user['user_type_id'];
 	$page_data['array_rekap_yearly'] = $array_rekap_yearly;
@@ -197,29 +198,20 @@ $(document).ready(function() {
 			var temp = $('.cnt-data').html();
 			eval('var data = ' + temp);
 			page.data = data;
-			
-			a = page;
-			page = a;
 		}
 	}
 	page.init();
 	
 	if ($('#chart-summary').length == 1) {
-		Morris.Line({
+		Morris.Bar({
 			element: 'chart-summary',
-			/*
-			data: [
-				{ ym: '200501', revo: 150, mio: 90 },
-				{ ym: '200502', revo: 75,  mio: 65 },
-				{ ym: '200503', revo: 50,  mio: 40 },
-				{ ym: '200504', revo: 75,  mio: 65 },
-				{ ym: '200505', revo: 50,  mio: 40 }
-			],
-			/*	*/
 			data: page.data.array_rekap_yearly.data,
-			xkey: 'ym',
-			ykeys: [ 'blade' ],
-			labels: [ 'Blade' ]
+			xkey: 'label',
+			ykeys: page.data.array_rekap_yearly.key,
+			labels: page.data.array_rekap_yearly.label,
+			barRatio: 0.4,
+			xLabelAngle: 35,
+			hideHover: 'auto'
 		});
 	}
 	

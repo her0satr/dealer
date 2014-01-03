@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 02, 2014 at 09:30 PM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Jan 03, 2014 at 10:18 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +19,32 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `dealer_db`
 --
+CREATE DATABASE IF NOT EXISTS `dealer_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `dealer_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event`
+--
+
+CREATE TABLE IF NOT EXISTS `event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content` longtext NOT NULL,
+  `thumbnail` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`id`, `name`, `content`, `thumbnail`) VALUES
+(2, 'Event No 4', 'Keterangan No 4', '2014/01/03/20140103_091320_8584.png'),
+(3, 'Event No 3', 'Keterangan No 3', '2014/01/03/20140103_091331_2588.png'),
+(4, 'Event No 2', 'Keterangan No 2', '2014/01/03/20140103_095419_8451.png'),
+(5, 'Event No 1', 'Keterangan No 1', '2014/01/03/20140103_095434_2579.png');
 
 -- --------------------------------------------------------
 
@@ -191,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `kendaraan` (
   `stock_update` int(11) NOT NULL,
   `stock_total` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `kendaraan`
@@ -210,7 +237,9 @@ INSERT INTO `kendaraan` (`id`, `penjualan_id`, `jenis_unit_id`, `jenis_warna_id`
 (16, 0, 13, 2, '2013-12-25', 5, 5),
 (17, 10, 13, 2, '2013-12-25', -1, 4),
 (18, 11, 13, 2, '2013-12-26', -1, 3),
-(19, 12, 13, 2, '2014-01-02', -1, 2);
+(19, 12, 13, 2, '2014-01-02', -1, 2),
+(20, 0, 12, 2, '2014-01-03', 5, 5),
+(21, 13, 12, 2, '2014-01-03', -1, 4);
 
 -- --------------------------------------------------------
 
@@ -268,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `penjualan` (
   `with_gesek` int(11) NOT NULL,
   `with_bast` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `penjualan`
@@ -285,7 +314,30 @@ INSERT INTO `penjualan` (`id`, `sales_id`, `admin_id`, `user_delivery_id`, `jeni
 (9, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
 (10, 2, 2, 2, 13, 2, 4, 1, 2, 2, '2013-12-25', 'Pembeli No 1', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
 (11, 2, 2, 2, 13, 2, 4, 0, 1, 2, '2013-12-26', 'Pembeli No 12', 'NIK temp', '0341', '2013-12-15', '', '', 0, 0, 0, 1000000, 100000, 0, 1, 0, 0, 0),
-(12, 2, 2, 0, 13, 2, 0, 0, 1, 2, '2014-01-02', 'Sales 1', '-', '0341', '2014-01-02', 'Malang', '-', 0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
+(12, 2, 2, 0, 13, 2, 0, 0, 1, 2, '2014-01-02', 'Sales 1', '-', '0341', '2014-01-02', 'Malang', '-', 0, 0, 0, 0, 0, 0, 0, 1, 1, 1),
+(13, 2, 2, 2, 12, 2, 0, 0, 1, 2, '2014-01-03', 'Namanya', '01258', '-', '2014-01-03', 'Malang', '-', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE IF NOT EXISTS `schedule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `schedule_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`id`, `name`, `location`, `schedule_time`) VALUES
+(4, 'Meeting Mingguan', 'Bengkel', '2014-01-15 11:00:00'),
+(5, 'Meeting Bulanan', 'Bengkel', '2014-01-31 10:00:00');
 
 -- --------------------------------------------------------
 

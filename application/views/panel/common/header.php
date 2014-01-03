@@ -21,8 +21,8 @@
 					<ul class="dropdown-menu">
 						<!--
 						<li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-						<li><a href="#"><i class="fa fa-cogs"></i> Settings</a></li>
 						-->
+						<li><a href="<?php echo base_url(); ?>"><i class="fa fa-globe"></i> Website</a></li>
 						<li><a href="<?php echo base_url('panel/home/logout'); ?>"><i class="fa fa-key"></i> Logout</a></li>
 					</ul>
 				</li>

@@ -172,8 +172,11 @@ class Penjualan_model extends CI_Model {
 		// prepare result
 		$result = array( 'data' => array(), 'key' => array(), 'label' => array() );
 		for ($i = 12; $i >= 0; $i--) {
-			$year_month = date("Ym", strtotime("-$i Month"));
-			$result['data'][$year_month] = array( 'ym' => $year_month );
+			$year_month = date("Y-m", strtotime("-$i Month"));
+			$result['data'][$year_month] = array(
+				'ym' => $year_month,
+				'label' => GetFormatDate($year_month.'-01', array( 'FormatDate' => 'M Y' ))
+			);
 		}
 		
 		// get value
@@ -189,7 +192,7 @@ class Penjualan_model extends CI_Model {
 		";
         $select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			$order_month_name = preg_replace('/[^0-9]/i', '', $row['order_month']);
+			$order_month_name = $row['order_month'];
 			$jenis_unit_name = preg_replace('/[^0-9a-z]/i', '_', strtolower($row['name']));
 			$result['data'][$order_month_name][$jenis_unit_name] = $row['total'];
 			
@@ -215,6 +218,23 @@ class Penjualan_model extends CI_Model {
 			}
 			
 			$result['data'][] = $row;
+		}
+		
+		return $result;
+	}
+	
+	function get_penjualan_pending() {
+		$result = array();
+		
+		$select_query = "
+			SELECT
+				(SELECT COUNT(*) FROM ".PENJUALAN." WHERE status_penjualan_id = '".STATUS_PENJUALAN_PENDING."' AND with_ktp = 0) no_ktp,
+				(SELECT COUNT(*) FROM ".PENJUALAN." WHERE status_penjualan_id = '".STATUS_PENJUALAN_PENDING."' AND with_gesek = 0) no_gesek,
+				(SELECT COUNT(*) FROM ".PENJUALAN." WHERE status_penjualan_id = '".STATUS_PENJUALAN_PENDING."' AND with_bast = 0) no_bask
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$result = $row;
 		}
 		
 		return $result;
