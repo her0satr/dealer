@@ -1,10 +1,10 @@
 <!-- JS -->
-<script src="<?php echo base_url('static/js/bootstrap.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/jquery-ui-1.9.2.custom.min.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/fullcalendar.min.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/jquery.rateit.min.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/jquery.prettyPhoto.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/jquery.validate.min.js'); ?>"></script>
+<script src="<?php echo base_url('static/js/bootstrap.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/common.js'); ?>"></script>
 
 <!-- jQuery Flot -->

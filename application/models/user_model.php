@@ -125,7 +125,7 @@ class User_model extends CI_Model {
 				'children' => array(
 					array( 'name' => 'kendaraan_masuk', 'title' => 'Kendaraan Masuk', 'user_type_id' => array( 1 ) ),
 					array( 'name' => 'kredit_kendaraan', 'title' => 'Penjualan Kendaraan', 'user_type_id' => array( 1, 2, 3, 4 ) ),
-					array( 'name' => 'invoice', 'title' => 'Kwintansi', 'user_type_id' => array( 1, 2, 3, 4 ) )
+					array( 'name' => 'invoice', 'title' => 'Kwintansi', 'user_type_id' => array( 1, 3, 4 ) )
 				)
 			),
 			array(

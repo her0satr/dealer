@@ -16,6 +16,11 @@ class kredit_kendaraan extends DEALER_Controller {
 		$_POST['user_type_id'] = $user['user_type_id'];
 		$_POST['column'] = array( 'sales_name', 'jenis_unit_name', 'name', 'order_date_swap', 'status_penjualan_name' );
 		
+		// additional filter for sales
+		if ($user['user_type_id'] == USER_ID_SALES) {
+			$_POST['sales_id'] = $user['id'];
+		}
+		
 		$array = $this->Penjualan_model->get_array($_POST);
 		$count = $this->Penjualan_model->get_count();
 		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );

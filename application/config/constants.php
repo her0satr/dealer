@@ -17,6 +17,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 define('SHA_SECRET',							'OraNgerti');
 
 define('USER_ID_ADMINISTRATOR',					1);
+define('USER_ID_SALES',							2);
+define('USER_ID_DELIVERY',						3);
 
 define('STATUS_PENJUALAN_PENDING',				1);
 define('STATUS_PENJUALAN_DITERIMA',				2);

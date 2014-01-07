@@ -57,6 +57,7 @@ class Penjualan_model extends CI_Model {
 		$param['field_replace']['order_date_swap'] = 'Penjualan.order_date';
 		$param['field_replace']['status_penjualan_name'] = 'StatusPenjualan.name';
 		
+		$string_sales = (!empty($param['sales_id'])) ? "AND Penjualan.sales_id = '".$param['sales_id']."'" : "";
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'order_date DESC');
 		$string_limit = GetStringLimit($param);
@@ -77,7 +78,7 @@ class Penjualan_model extends CI_Model {
 			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Penjualan.jenis_unit_id
 			LEFT JOIN ".JENIS_PEMBAYARAN." JenisPembayaran ON JenisPembayaran.id = Penjualan.jenis_pembayaran_id
 			LEFT JOIN ".STATUS_PENJUALAN." StatusPenjualan ON StatusPenjualan.id = Penjualan.status_penjualan_id
-			WHERE 1 $string_filter
+			WHERE 1 $string_sales $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -102,6 +103,14 @@ class Penjualan_model extends CI_Model {
 	function get_rekap_penjualan($param = array()) {
 		$array = array();
 		
+		// filter
+		$string_main = $string_tunai = $string_kredit = '';
+		if (!empty($param['sales_id'])) {
+			$string_main = "AND Penjualan.sales_id = '".$param['sales_id']."'";
+			$string_tunai = "AND PenjualanTunai.sales_id = '".$param['sales_id']."'";
+			$string_kredit = "AND PenjualanKredit.sales_id = '".$param['sales_id']."'";
+		}
+		
 		$select_query = "
 			SELECT JenisUnit.name jenis_unit_name,
 				(	SELECT COUNT(*)
@@ -112,6 +121,7 @@ class Penjualan_model extends CI_Model {
 						AND PenjualanKredit.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
 						AND PenjualanKredit.order_date >= '".$param['date_start']."'
 						AND PenjualanKredit.order_date <= '".$param['date_end']."'
+						$string_kredit
 				) kredit,
 				(	SELECT COUNT(*)
 					FROM ".PENJUALAN." PenjualanTunai
@@ -121,6 +131,7 @@ class Penjualan_model extends CI_Model {
 						AND PenjualanTunai.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
 						AND PenjualanTunai.order_date >= '".$param['date_start']."'
 						AND PenjualanTunai.order_date <= '".$param['date_end']."'
+						$string_tunai
 				) tunai
 			FROM ".PENJUALAN." Penjualan
 			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Penjualan.jenis_unit_id
@@ -128,6 +139,7 @@ class Penjualan_model extends CI_Model {
 				Penjualan.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
 				AND Penjualan.order_date >= '".$param['date_start']."'
 				AND Penjualan.order_date <= '".$param['date_end']."'
+				$string_main
 			GROUP BY JenisUnit.name
 			ORDER BY JenisUnit.name ASC
 			LIMIT 25
@@ -144,6 +156,9 @@ class Penjualan_model extends CI_Model {
 	function get_rekap_sales($param = array()) {
 		$array = array();
 		
+		// filter
+		$string_sales = (!empty($param['sales_id'])) ? "AND Penjualan.sales_id = '".$param['sales_id']."'" : "";
+		
 		$select_query = "
 			SELECT User.fullname label, COUNT(*) value
 			FROM ".PENJUALAN." Penjualan
@@ -153,6 +168,7 @@ class Penjualan_model extends CI_Model {
 				Penjualan.status_penjualan_id = '".STATUS_PENJUALAN_DITERIMA."'
 				AND Penjualan.order_date >= '".$param['date_start']."'
 				AND Penjualan.order_date <= '".$param['date_end']."'
+				$string_sales
 			GROUP BY User.fullname
 			ORDER BY User.fullname ASC
 			LIMIT 25
@@ -251,6 +267,8 @@ class Penjualan_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
+		$user = $this->User_model->get_session();
+		
 		$row = StripArray($row, array( ));
 		$row['order_date_swap'] = ExchangeFormatDate($row['order_date']);
 		
@@ -262,27 +280,27 @@ class Penjualan_model extends CI_Model {
 		if (count(@$param['column']) > 0) {
 			// generate button
 			if (!empty($param['kredit_penjualan_grid'])) {
-				$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
+				$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
 				
 				// approve / reject button
 				if (@$param['user_type_id'] == USER_ID_ADMINISTRATOR && $row['status_penjualan_id'] == STATUS_PENJUALAN_PENDING) {
-					$param['is_custom'] .= '<button class="btn btn-xs btn-approve btn-success"><i class="fa fa-check"></i></button> ';
-					$param['is_custom'] .= '<button class="btn btn-xs btn-reject btn-warning"><i class="fa fa-adjust"></i></button> ';
+					$param['is_custom'] .= '<button class="btn btn-xs btn-approve btn-success" data-original-title="Approve"><i class="fa fa-check"></i></button> ';
+					$param['is_custom'] .= '<button class="btn btn-xs btn-reject btn-warning" data-original-title="Reject"><i class="fa fa-adjust"></i></button> ';
 				}
 				
 				// delivery button
 				if (@$param['user_type_id'] == USER_ID_ADMINISTRATOR && $row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA && empty($row['is_deliver'])) {
-					$param['is_custom'] .= '<button class="btn btn-xs btn-delivery btn-success"><i class="fa fa-envelope"></i></button> ';
+					$param['is_custom'] .= '<button class="btn btn-xs btn-delivery btn-success" data-original-title="Deliver"><i class="fa fa-envelope"></i></button> ';
 				}
 				
 				// delete button
-				if($row['status_penjualan_id'] == STATUS_PENJUALAN_PENDING) {
-					$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
+				if($row['status_penjualan_id'] == STATUS_PENJUALAN_PENDING && $user['user_type_id'] != USER_ID_DELIVERY) {
+					$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
 				}
 				
 				// invoice
 				if (@$param['user_type_id'] == USER_ID_ADMINISTRATOR && $row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA) {
-					$param['is_custom'] .= '<button class="btn btn-xs btn-invoice btn-success"><i class="fa fa-file"></i></button> ';
+					$param['is_custom'] .= '<button class="btn btn-xs btn-invoice btn-success" data-original-title="Kwintasi"><i class="fa fa-file"></i></button> ';
 				}
 			}
 			

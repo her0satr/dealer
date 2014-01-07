@@ -11,7 +11,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left">Kendaraan Masuk</h2>
+			<h2 class="pull-left button-back">Kendaraan Masuk</h2>
 			<div class="clearfix"></div>
 		</div>
 		

@@ -7,7 +7,7 @@
 	<?php $this->load->view( 'panel/common/sidebar'); ?>
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left">Schedule</h2>
+			<h2 class="pull-left button-back">Schedule</h2>
 			<div class="clearfix"></div>
 		</div>
 		

@@ -1,6 +1,13 @@
 <?php
+	$user = $this->User_model->get_session();
+	
 	$_POST['date_start'] = (empty($_POST['date_start'])) ? date("01-m-Y") : $_POST['date_start'];
 	$_POST['date_end'] = (empty($_POST['date_end'])) ? date("t-m-Y") : $_POST['date_end'];
+	
+	// additional filter for sales
+	if ($user['user_type_id'] == USER_ID_SALES) {
+		$param_rekap_penjualan['sales_id'] = $user['id'];
+	}
 	
 	$param_rekap_penjualan['date_start'] = ExchangeFormatDate($_POST['date_start']);
 	$param_rekap_penjualan['date_end'] = ExchangeFormatDate($_POST['date_end']);
@@ -21,7 +28,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left">Rekap Penjualan</h2>
+			<h2 class="pull-left button-back">Rekap Penjualan</h2>
 			<div class="clearfix"></div>
 		</div>
 		

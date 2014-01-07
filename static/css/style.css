@@ -65,6 +65,7 @@ a:hover,a:active,a:focus {
 .bold{
 	font-weight: bold;
 }
+.cursor { cursor: pointer; }
 
 hr{
 margin:15px 0px 10px 0px;

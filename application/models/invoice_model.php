@@ -125,9 +125,9 @@ class Invoice_model extends CI_Model {
 		}
 		
 		if (count(@$param['column']) > 0) {
-			$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
-			$param['is_custom'] .= '<a href="'.base_url('panel/inventory/invoice/cetak?id='.$row['id']).'" target="_blank"><button class="btn btn-xs btn-warning"><i class="fa fa-file"></i></button></a> ';
-			$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
+			$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
+			$param['is_custom'] .= '<a href="'.base_url('panel/inventory/invoice/cetak?id='.$row['id']).'" target="_blank"><button class="btn btn-xs btn-warning" data-original-title="Kwintasi"><i class="fa fa-file"></i></button></a> ';
+			$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
 			
 			$row = dt_view_set($row, $param);
 		}

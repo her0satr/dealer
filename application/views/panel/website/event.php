@@ -11,7 +11,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left">Event</h2>
+			<h2 class="pull-left button-back">Event</h2>
 			<div class="clearfix"></div>
 		</div>
 		

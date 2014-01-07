@@ -8,7 +8,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left">Jenis Pembayaran</h2>
+			<h2 class="pull-left button-back">Jenis Pembayaran</h2>
 			<div class="clearfix"></div>
 		</div>
 		

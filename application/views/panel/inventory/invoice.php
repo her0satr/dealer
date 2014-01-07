@@ -13,7 +13,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left">Kwintasi</h2>
+			<h2 class="pull-left button-back">Kwintasi</h2>
 			<div class="clearfix"></div>
 		</div>
 		

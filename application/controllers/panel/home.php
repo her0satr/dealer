@@ -10,7 +10,13 @@ class home extends CI_Controller {
 	}
 	
 	function dashboard() {
-		$this->load->view( 'panel/dashboard');
+		$user = $this->User_model->get_session();
+		
+		if ($user['user_type_id'] == USER_ID_DELIVERY) {
+			$this->load->view( 'panel/inventory/kredit_kendaraan');
+		} else {
+			$this->load->view( 'panel/dashboard');
+		}
 	}
 	
 	function action() {

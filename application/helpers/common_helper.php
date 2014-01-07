@@ -743,8 +743,8 @@
             
 			$temp_column = '';
             if ($param['is_edit'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
-                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
             }
             if (isset($param['is_edit_only']) && $param['is_edit_only'] == 1) {
                 $temp_column .= '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
