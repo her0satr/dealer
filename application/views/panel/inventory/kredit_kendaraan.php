@@ -8,9 +8,11 @@
 	
 	$page_data['user_id'] = $user['id'];
 	$page_data['user_type_id'] = $user['user_type_id'];
+	$page_data['USER_ID_DELIVERY'] = USER_ID_DELIVERY;
 	$page_data['USER_ID_ADMINISTRATOR'] = USER_ID_ADMINISTRATOR;
 	$page_data['STATUS_PENJUALAN_PENDING'] = STATUS_PENJUALAN_PENDING;
 	$page_data['STATUS_PENJUALAN_DITOLAK'] = STATUS_PENJUALAN_DITOLAK;
+	$page_data['STATUS_PENJUALAN_DITERIMA'] = STATUS_PENJUALAN_DITERIMA;
 ?>
 <?php $this->load->view( 'panel/common/meta', array( 'title' => 'Kredit Kendaraan' ) ); ?>
 <body>
@@ -109,7 +111,7 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Jenis Unit</label>
 								<div class="col-lg-10">
-									<select class="form-control" name="jenis_unit_id">
+									<select class="form-control form-entry" name="jenis_unit_id">
 										<?php echo ShowOption(array( 'Array' => $array_jenis_unit )); ?>
 									</select>
 								</div>
@@ -117,7 +119,7 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Jenis Warna</label>
 								<div class="col-lg-10">
-									<select class="form-control" name="jenis_warna_id">
+									<select class="form-control form-entry" name="jenis_warna_id">
 										<?php echo ShowOption(array( 'Array' => $array_jenis_warna )); ?>
 									</select>
 								</div>
@@ -125,7 +127,7 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Jenis Pembayaran</label>
 								<div class="col-lg-10">
-									<select class="form-control" name="jenis_pembayaran_id">
+									<select class="form-control form-entry" name="jenis_pembayaran_id">
 										<?php echo ShowOption(array( 'Array' => $array_jenis_pembayaran )); ?>
 									</select>
 								</div>
@@ -133,32 +135,32 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Nama Konsumen</label>
 								<div class="col-lg-10">
-									<input type="text" name="name" class="form-control" placeholder="Nama Konsumen" />
+									<input type="text" name="name" class="form-control form-entry" placeholder="Nama Konsumen" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">NIK</label>
 								<div class="col-lg-10">
-									<input type="text" name="nik" class="form-control" placeholder="NIK" />
+									<input type="text" name="nik" class="form-control form-entry" placeholder="NIK" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">No Telepon / HP</label>
 								<div class="col-lg-10">
-									<input type="text" name="phone" class="form-control" placeholder="No Telepon / HP" />
+									<input type="text" name="phone" class="form-control form-entry" placeholder="No Telepon / HP" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Tempat Lahir</label>
 								<div class="col-lg-10">
-									<input type="text" name="birth_place" class="form-control" placeholder="Tempat Lahir" />
+									<input type="text" name="birth_place" class="form-control form-entry" placeholder="Tempat Lahir" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Tanggal Lahir</label>
 								<div class="col-lg-10">
 									<div class="input-append datepicker">
-										<input name="birth_date" type="text" class="form-control dtpicker" placeholder="Tanggal Lahir" data-format="dd-MM-yyyy" />
+										<input name="birth_date" type="text" class="form-control dtpicker form-entry" placeholder="Tanggal Lahir" data-format="dd-MM-yyyy" />
 										<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
 									</div>
 								</div>
@@ -166,19 +168,19 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Alamat</label>
 								<div class="col-lg-10">
-									<textarea class="form-control" rows="3" name="address" placeholder="Alamat"></textarea>
+									<textarea class="form-control form-entry" rows="3" name="address" placeholder="Alamat"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Harga OTR</label>
 								<div class="col-lg-10">
-									<input type="text" name="price_otr" class="form-control" placeholder="Harga OTR" />
+									<input type="text" name="price_otr" class="form-control form-entry" placeholder="Harga OTR" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Lama Angsuran</label>
 								<div class="col-lg-10">
-									<select class="form-control" name="jenis_angsuran_id">
+									<select class="form-control form-entry" name="jenis_angsuran_id">
 										<?php echo ShowOption(array( 'Array' => $array_jenis_angsuran )); ?>
 									</select>
 								</div>
@@ -186,13 +188,13 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Angsuran</label>
 								<div class="col-lg-10">
-									<input type="text" name="price_angsuran" class="form-control" placeholder="Angsuran" />
+									<input type="text" name="price_angsuran" class="form-control form-entry" placeholder="Angsuran" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Jenis Leasing</label>
 								<div class="col-lg-10">
-									<select class="form-control" name="jenis_leasing_id">
+									<select class="form-control form-entry" name="jenis_leasing_id">
 										<?php echo ShowOption(array( 'Array' => $array_jenis_leasing )); ?>
 									</select>
 								</div>
@@ -200,28 +202,74 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Potongan Penjualan</label>
 								<div class="col-lg-10">
-									<input type="text" name="discount" class="form-control" placeholder="Potongan Penjualan" />
+									<input type="text" name="discount" class="form-control form-entry" placeholder="Potongan Penjualan" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">DP Konsumen</label>
 								<div class="col-lg-10">
-									<input type="text" name="dp_customer" class="form-control" placeholder="DP Konsumen" />
+									<input type="text" name="dp_customer" class="form-control form-entry" placeholder="DP Konsumen" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">DP Gros</label>
 								<div class="col-lg-10">
-									<input type="text" name="dp_gross" class="form-control" placeholder="DP Konsumen" />
+									<input type="text" name="dp_gross" class="form-control form-entry" placeholder="DP Konsumen" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">SUB</label>
 								<div class="col-lg-10">
-									<input type="text" name="sub" class="form-control" placeholder="SUB" />
+									<input type="text" name="sub" class="form-control form-entry" placeholder="SUB" />
 								</div>
 							</div>
 							<hr />
+							
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="col-lg-2 control-label">KTP</label>
+									<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_ktp" class="form-entry" value="1" /></label></div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Geset</label>
+									<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_gesek" class="form-entry" value="1" /></label></div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Bast</label>
+									<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_bast" class="form-entry" value="1" /></label></div>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Noka Nosin</label>
+									<div class="col-lg-8">
+										<input type="text" name="noka_nosin" class="form-control" placeholder="Noka Nosin" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Perkiraan Pengiriman</label>
+									<div class="col-lg-8">
+										<div class="input-append datepicker">
+											<input name="delivery_date" type="text" class="form-control dtpicker" placeholder="Perkiraan Pengiriman" data-format="dd-MM-yyyy" />
+											<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">DeliveryMan</label>
+									<div class="col-lg-8">
+										<input type="text" name="delivery_man" class="form-control" placeholder="DeliveryMan" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">ACC / TL</label>
+									<div class="col-lg-8">
+										<input type="text" name="status_penjualan_name" class="form-control" placeholder="ACC / TL" readonly="readonly" />
+									</div>
+								</div>
+							</div>
+							<hr style="clear: both;" />
+							
 							<div class="form-group form-btn">
 								<div class="col-lg-offset-2 col-lg-9">
 									<button type="submit" class="btn btn-info">Save</button>
@@ -276,7 +324,6 @@ $(document).ready(function() {
 				eval('var record = ' + raw_record);
 				
 				Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
-					
 					$('#form-kredit-kendaraan [name="id"]').val(result.id);
 					$('#form-kredit-kendaraan [name="jenis_unit_id"]').val(result.jenis_unit_id);
 					$('#form-kredit-kendaraan [name="jenis_warna_id"]').val(result.jenis_warna_id);
@@ -296,11 +343,39 @@ $(document).ready(function() {
 					$('#form-kredit-kendaraan [name="dp_gross"]').val(result.dp_gross);
 					$('#form-kredit-kendaraan [name="sub"]').val(result.sub);
 					
+					// additional information
+					$('#form-kredit-kendaraan [name="with_ktp"], #form-kredit-kendaraan [name="with_gesek"], #form-kredit-kendaraan [name="with_bast"]').attr('checked', false);
+					if (result.with_ktp == 1) {
+						$('#form-kredit-kendaraan [name="with_ktp"]').click();
+					}
+					if (result.with_gesek == 1) {
+						$('#form-kredit-kendaraan [name="with_gesek"]').click();
+					}
+					if (result.with_bast == 1) {
+						$('#form-kredit-kendaraan [name="with_bast"]').click();
+					}
+					$('#form-kredit-kendaraan [name="noka_nosin"]').val(result.noka_nosin);
+					$('#form-kredit-kendaraan [name="delivery_date"]').val(Func.SwapDate(result.delivery_date));
+					$('#form-kredit-kendaraan [name="delivery_man"]').val(result.delivery_man);
+					$('#form-kredit-kendaraan [name="status_penjualan_name"]').val(result.status_penjualan_name);
+					
 					// editable only for pending status
-					if (result.status_penjualan_id != page.data.STATUS_PENJUALAN_PENDING && page.data.user_type_id != page.data.USER_ID_ADMINISTRATOR) {
-						$('#form-kredit-kendaraan .form-btn [type="submit"]').hide();
-					} else {
+					if (page.data.user_type_id == page.data.USER_ID_ADMINISTRATOR) {
 						$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
+					} else if (page.data.user_type_id == page.data.USER_ID_DELIVERY) {
+						if (result.status_penjualan_id == page.data.STATUS_PENJUALAN_DITERIMA) {
+							$('.form-entry').attr('disabled', 'disabled');
+							$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
+						} else {
+							$('.form-entry').removeAttr('disabled');
+							$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
+						}
+					} else if (page.data.user_type_id == page.data.USER_ID_SALES) {
+						if (result.status_penjualan_id == page.data.STATUS_PENJUALAN_DITERIMA) {
+							$('#form-kredit-kendaraan .form-btn [type="submit"]').hide();
+						} else {
+							$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
+						}
 					}
 					
 					page.show_form_kredit_kendaraan();
@@ -391,6 +466,7 @@ $(document).ready(function() {
 		$('#form-kredit-kendaraan [name="id"]').val(0);
 		
 		// show button
+		$('.form-entry').removeAttr('disabled');
 		$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
 	});
 	$('#form-kredit-kendaraan form').validate({
@@ -412,6 +488,10 @@ $(document).ready(function() {
 		
 		var param = Site.Form.GetValue('form-kredit-kendaraan');
 		param.birth_date = Func.SwapDate(param.birth_date);
+		param.delivery_date = Func.SwapDate(param.delivery_date);
+		param.with_ktp = ($('#form-kredit-kendaraan [name="with_ktp"]').is(':checked')) ? 1 : 0;
+		param.with_gesek = ($('#form-kredit-kendaraan [name="with_gesek"]').is(':checked')) ? 1 : 0;
+		param.with_bast = ($('#form-kredit-kendaraan [name="with_bast"]').is(':checked')) ? 1 : 0;
 		Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: param, callback: function(result) {
 			if (result.status == 1) {
 				dt.reload();
@@ -426,9 +506,9 @@ $(document).ready(function() {
 	// form confirm
 	$('#form-confirm .btn-primary').click(function() {
 		var param = Site.Form.GetValue('form-confirm');
-		param.with_ktp = ($('[name="with_ktp"]').is(':checked')) ? 1 : 0;
-		param.with_gesek = ($('[name="with_gesek"]').is(':checked')) ? 1 : 0;
-		param.with_bast = ($('[name="with_bast"]').is(':checked')) ? 1 : 0;
+		param.with_ktp = ($('#form-confirm [name="with_ktp"]').is(':checked')) ? 1 : 0;
+		param.with_gesek = ($('#form-confirm [name="with_gesek"]').is(':checked')) ? 1 : 0;
+		param.with_bast = ($('#form-confirm [name="with_bast"]').is(':checked')) ? 1 : 0;
 		Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: param, callback: function(result) {
 			if (result.status == 1) {
 				dt.reload();
@@ -441,6 +521,8 @@ $(document).ready(function() {
 	});
 	
 	page.init();
+	a = page;
+	page = a;
 });
 
 function set_kredit() {

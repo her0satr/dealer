@@ -235,6 +235,12 @@ $(document).ready(function() {
 				dt.reload();
 				page.show_grid();
 				$('#form-user form')[0].reset();
+				
+				if (typeof(result.page_reload) != 'undefined') {
+					if (result.page_reload) {
+						window.location = web.host + 'panel/member/user';
+					}
+				}
 			}
 		} });
 		

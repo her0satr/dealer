@@ -13,3 +13,6 @@
 - ALTER TABLE `invoice` ADD `content` LONGTEXT NOT NULL AFTER `penerima`
 - CREATE TABLE IF NOT EXISTS `event` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `content` longtext NOT NULL, `thumbnail` varchar(255) NOT NULL, PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 - CREATE TABLE IF NOT EXISTS `schedule` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `location` varchar(255) NOT NULL, `schedule_time` datetime NOT NULL, PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+2013-01-20 :
+- ALTER TABLE  `penjualan` ADD  `noka_nosin` VARCHAR( 50 ) NOT NULL,  ADD  `delivery_date` DATE NOT NULL, ADD  `delivery_man` VARCHAR( 255 ) NOT NULL

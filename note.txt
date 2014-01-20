@@ -1,28 +1,18 @@
-pencarian di Stock Kendaraan masih gagal, perlu ada option untuk ignore filter
---------------------------------------------------------------------------------------------------------
-DEALER
---------------------------------------------------------------------------------------------------------
-DONE :
-1. Dashboard Sales
-   - Form Penjualan Sales seperti di SWF
+Hasil review :
+1. saat upload avatar, foto thumbnail blm bisa LANGSUNG berubah sesuai perubahan.foto. tp kyknya ndak urgent
+- ok
 
-2. User Role
-   - Admin, Sales, Penagihan, Delivery
-   - Sales cuma bisa lihat Inventory => Kredit Kendaraan & Laporan (all)
-   - Admin bisa mengakses semuanya
-   - Admin bisa edit (Inventory => Kredit Kendaraan) yang statusnya sudah di update
+2. di halaman penagihan dan delivery di tambah checklist utk kelengkapan yang sudah di cek oleh admin(lihat di SWF : CEK KELENGKAPAN)
+- di halaman detail penjualan, ada informasi (ktp, gesek, bash)
+- ok
 
-3. Form Kredit Penjualan
-   - untuk admin inputnya kurang check box, KTP, Gesek, Bast (lihat swf)
-   - entryan by eddy tidak bisa di edit
+3, di halaman penagihan dan delivery, form nya bukan lagi isian, tapi dekstop nya list transaksi, apabila di klik akan tampil form yg sdh diisi oleh sales dan di cek oleh admin.
+- ok
 
-4. Form Penagihan
-   - Cetak Kwintasi (ada 2 jenis)
-
-5. Dashboard Admin
-   - Rekap Penjualan selama setahun terakhir seperti yang di excel
-
-6. Website
-   - sesimpel mungkin seperti yang di swf
-   - hanya bisa di akses oleh user yang sudah login
-   - halaman index pertama kali di lempar ke panel untuk login
+4. di halaman admin, saat klik inventory -> penjualan kendaraan -> Waktu di klik salah satu penjualan, terdapat tambahan utk CEK KELENGKAPAN KTP, gesek dan BAST(LIHAT DI SOP).
+Dan terdapat tambahan isian Noka Nosin, Perkiraan waktu kirim, ACC/TL, dan DeliveryMan(di sop sdh ada)
+- tambahan input untuk delivery
+	- Noka Nosin
+	- Perkiraan waktu kirim
+	- DeliveryMan
+	- ACC/TL => ??

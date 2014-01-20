@@ -7,7 +7,7 @@ class Penjualan_model extends CI_Model {
         $this->field = array(
 			'id', 'sales_id', 'jenis_unit_id', 'jenis_warna_id', 'jenis_leasing_id', 'jenis_angsuran_id', 'jenis_pembayaran_id', 'status_penjualan_id', 'name', 'nik',
 			'phone', 'birth_date', 'discount', 'dp_customer', 'dp_gross', 'sub', 'is_deliver', 'order_date', 'admin_id', 'user_delivery_id', 'birth_place', 'address',
-			'price_otr', 'price_angsuran', 'with_ktp', 'with_gesek', 'with_bast'
+			'price_otr', 'price_angsuran', 'with_ktp', 'with_gesek', 'with_bast', 'noka_nosin', 'delivery_date', 'delivery_man'
 		);
     }
 
@@ -37,7 +37,13 @@ class Penjualan_model extends CI_Model {
         $array = array();
        
         if (isset($param['id'])) {
-            $select_query  = "SELECT * FROM ".PENJUALAN." WHERE id = '".$param['id']."' LIMIT 1";
+            $select_query  = "
+				SELECT Penjualan.*, StatusPenjualan.name status_penjualan_name
+				FROM ".PENJUALAN." Penjualan
+				LEFT JOIN ".STATUS_PENJUALAN." StatusPenjualan ON StatusPenjualan.id = Penjualan.status_penjualan_id
+				WHERE Penjualan.id = '".$param['id']."'
+				LIMIT 1
+			";
         } 
 		
         $select_result = mysql_query($select_query) or die(mysql_error());
@@ -269,7 +275,7 @@ class Penjualan_model extends CI_Model {
 	function sync($row, $param = array()) {
 		$user = $this->User_model->get_session();
 		
-		$row = StripArray($row, array( ));
+		$row = StripArray($row, array( 'delivery_date' ));
 		$row['order_date_swap'] = ExchangeFormatDate($row['order_date']);
 		
 		// status penjualan

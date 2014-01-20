@@ -24,6 +24,9 @@ class user extends DEALER_Controller {
 		$action = (isset($_POST['action'])) ? $_POST['action'] : '';
 		unset($_POST['action']);
 		
+		// user
+		$user = $this->User_model->get_session();
+		
 		$result = array();
 		if ($action == 'update') {
 			if (isset($_POST['passwd']) && empty($_POST['passwd'])) {
@@ -33,6 +36,15 @@ class user extends DEALER_Controller {
 			}
 			
 			$result = $this->User_model->update($_POST);
+			
+			// check reload
+			if (!empty($_POST['thumbnail']) && $user['id'] == $result['id']) {
+				$result['page_reload'] = true;
+				
+				// set session
+				$user = $this->User_model->get_by_id(array( 'id' => $result['id'] ));
+				$this->User_model->set_session($user);
+			}
 		} else if ($action == 'get_by_id') {
 			$result = $this->User_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'delete') {
