@@ -12,7 +12,7 @@ class home extends CI_Controller {
 	function dashboard() {
 		$user = $this->User_model->get_session();
 		
-		if ($user['user_type_id'] == USER_ID_DELIVERY) {
+		if ($user['user_type_id'] == USER_ID_DELIVERY || $user['user_type_id'] == USER_ID_PENAGIHAN) {
 			$this->load->view( 'panel/inventory/kredit_kendaraan');
 		} else {
 			$this->load->view( 'panel/dashboard');
