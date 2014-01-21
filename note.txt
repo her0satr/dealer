@@ -1,18 +1,29 @@
-Hasil review :
-1. saat upload avatar, foto thumbnail blm bisa LANGSUNG berubah sesuai perubahan.foto. tp kyknya ndak urgent
-- ok
+Eddy: yg penagihan, delivery dan finance itu stlh klik list di dashboard, isian nya sudah tdk bs di edit her
+Eddy: yg bisa edit hanya admin
+Eddy: jd kyk fitur drop down list misal adira, fif dll itu tdk ada
+Eddy: di list nya bukan tombol edit tapi view
+herry: bentar
+herry: finance ngak ada mas 
+herry: penagihan, delivery => ini cuma bisa edit yang dibawah itu aja mas
+herry: yang ini aja : Noka Nosin / Perkiraan Pengiriman / DeliveryMan
+Eddy: tp kmrn aq coba edit jenis kendaraan bisa her
+Eddy: bisa berubah
+herry: soalnya statusnya masih pending mas
+herry: jadi bisa diubah
+Eddy: yg status di ACC jg bisa di ubah lho, coba spean cek
+herry: oiya
+herry: q yang miss
+herry: *noted
+Eddy: sip
+herry: yang ini yakpa ?
+herry: Eddy: jd kyk fitur drop down list misal adira, fif dll itu tdk ada
+Eddy: di list nya bukan tombol edit tapi view
+Eddy: aq print screen ya?
+herry: ok
+Eddy: ntar aq email
+herry: seep
+Eddy: stlh ini fix, aq lgsg ngadep bos e
+Eddy: sip her
+herry: ok mas
 
-2. di halaman penagihan dan delivery di tambah checklist utk kelengkapan yang sudah di cek oleh admin(lihat di SWF : CEK KELENGKAPAN)
-- di halaman detail penjualan, ada informasi (ktp, gesek, bash)
-- ok
-
-3, di halaman penagihan dan delivery, form nya bukan lagi isian, tapi dekstop nya list transaksi, apabila di klik akan tampil form yg sdh diisi oleh sales dan di cek oleh admin.
-- ok
-
-4. di halaman admin, saat klik inventory -> penjualan kendaraan -> Waktu di klik salah satu penjualan, terdapat tambahan utk CEK KELENGKAPAN KTP, gesek dan BAST(LIHAT DI SOP).
-Dan terdapat tambahan isian Noka Nosin, Perkiraan waktu kirim, ACC/TL, dan DeliveryMan(di sop sdh ada)
-- tambahan input untuk delivery
-	- Noka Nosin
-	- Perkiraan waktu kirim
-	- DeliveryMan
-	- ACC/TL => ??
+Sama tambahan email
