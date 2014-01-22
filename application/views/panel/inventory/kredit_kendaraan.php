@@ -8,7 +8,9 @@
 	
 	$page_data['user_id'] = $user['id'];
 	$page_data['user_type_id'] = $user['user_type_id'];
+	$page_data['USER_ID_SALES'] = USER_ID_SALES;
 	$page_data['USER_ID_DELIVERY'] = USER_ID_DELIVERY;
+	$page_data['USER_ID_PENAGIHAN'] = USER_ID_PENAGIHAN;
 	$page_data['USER_ID_ADMINISTRATOR'] = USER_ID_ADMINISTRATOR;
 	$page_data['STATUS_PENJUALAN_PENDING'] = STATUS_PENJUALAN_PENDING;
 	$page_data['STATUS_PENJUALAN_DITOLAK'] = STATUS_PENJUALAN_DITOLAK;
@@ -243,14 +245,14 @@
 								<div class="form-group">
 									<label class="col-lg-4 control-label">Noka Nosin</label>
 									<div class="col-lg-8">
-										<input type="text" name="noka_nosin" class="form-control" placeholder="Noka Nosin" />
+										<input type="text" name="noka_nosin" class="form-control form-entry-penagihan" placeholder="Noka Nosin" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-lg-4 control-label">Perkiraan Pengiriman</label>
 									<div class="col-lg-8">
 										<div class="input-append datepicker">
-											<input name="delivery_date" type="text" class="form-control dtpicker" placeholder="Perkiraan Pengiriman" data-format="dd-MM-yyyy" />
+											<input name="delivery_date" type="text" class="form-control form-entry-penagihan dtpicker" placeholder="Perkiraan Pengiriman" data-format="dd-MM-yyyy" />
 											<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
 										</div>
 									</div>
@@ -258,7 +260,7 @@
 								<div class="form-group">
 									<label class="col-lg-4 control-label">DeliveryMan</label>
 									<div class="col-lg-8">
-										<input type="text" name="delivery_man" class="form-control" placeholder="DeliveryMan" />
+										<input type="text" name="delivery_man" class="form-control form-entry-penagihan" placeholder="DeliveryMan" />
 									</div>
 								</div>
 								<div class="form-group">
@@ -376,6 +378,10 @@ $(document).ready(function() {
 						} else {
 							$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
 						}
+					} else if (page.data.user_type_id == page.data.USER_ID_PENAGIHAN) {
+						$('.form-entry').attr('disabled', 'disabled');
+						$('.form-entry-penagihan').attr('disabled', 'disabled');
+						$('#form-kredit-kendaraan .form-btn [type="submit"]').hide();
 					}
 					
 					page.show_form_kredit_kendaraan();
@@ -521,8 +527,6 @@ $(document).ready(function() {
 	});
 	
 	page.init();
-	a = page;
-	page = a;
 });
 
 function set_kredit() {
