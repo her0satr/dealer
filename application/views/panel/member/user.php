@@ -211,6 +211,7 @@ $(document).ready(function() {
 				Func.ajax({ url: web.host + 'panel/member/user/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					$('#form-user [name="id"]').val(result.id);
 					$('#form-user [name="user_type_id"]').val(result.user_type_id);
+					$('#form-user [name="koordinator_id"]').val(result.koordinator_id);
 					$('#form-user [name="email"]').val(result.email);
 					$('#form-user [name="address"]').val(result.address);
 					$('#form-user [name="fullname"]').val(result.fullname);
