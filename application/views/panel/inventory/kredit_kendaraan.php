@@ -22,7 +22,10 @@
 
 <div class="content">
 	<?php $this->load->view( 'panel/common/sidebar'); ?>
-	<div class="hide cnt-data"><?php echo json_encode($page_data); ?></div>
+	<div class="hide">
+		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
+		<iframe name="iframe_ktp_file" src="<?php echo base_url('panel/upload?callback=set_ktp_file'); ?>"></iframe>
+	</div>
 	
 	<div id="form-confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog"><div class="modal-content">
@@ -171,6 +174,16 @@
 								<label class="col-lg-2 control-label">Alamat</label>
 								<div class="col-lg-10">
 									<textarea class="form-control form-entry" rows="3" name="address" placeholder="Alamat"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Upload KTP</label>
+								<div class="col-lg-4">
+									<input type="text" name="ktp_file" class="form-control" placeholder="Upload KTP" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-ktp" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-ktp" value="Check File" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -324,6 +337,13 @@ $(document).ready(function() {
 		var sub = dp_gross - dp_customer;
 		$('#form-kredit-kendaraan [name="sub"]').val(sub);
 	});
+	$('#form-kredit-kendaraan .btn-check-ktp').click(function() {
+		var ktp_file = $('#form-kredit-kendaraan [name="ktp_file"]').val();
+		if (ktp_file.length == 0) {
+			return;
+		}
+		window.open(web.host + 'static/upload/' + ktp_file);
+	});
 	
 	// grid
 	var param = {
@@ -346,6 +366,7 @@ $(document).ready(function() {
 					$('#form-kredit-kendaraan [name="nik"]').val(result.nik);
 					$('#form-kredit-kendaraan [name="phone"]').val(result.phone);
 					$('#form-kredit-kendaraan [name="address"]').val(result.address);
+					$('#form-kredit-kendaraan [name="ktp_file"]').val(result.ktp_file);
 					$('#form-kredit-kendaraan [name="birth_place"]').val(result.birth_place);
 					$('#form-kredit-kendaraan [name="birth_date"]').val(Func.SwapDate(result.birth_date));
 					$('#form-kredit-kendaraan [name="price_otr"]').val(result.price_otr);
@@ -536,6 +557,12 @@ $(document).ready(function() {
 			}
 		} });
 	});
+	
+	// upload
+	$('.btn-browse-ktp').click(function() { window.iframe_ktp_file.browse() });
+	set_ktp_file = function(p) {
+		$('#form-kredit-kendaraan [name="ktp_file"]').val(p.file_name);
+	}
 	
 	page.init();
 });

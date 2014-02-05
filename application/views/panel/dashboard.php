@@ -22,7 +22,10 @@
 
 <div class="content">
 	<?php $this->load->view( 'panel/common/sidebar'); ?>
-	<div class="hide cnt-data"><?php echo json_encode($page_data); ?></div>
+	<div class="hide">
+		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
+		<iframe name="iframe_ktp_file" src="<?php echo base_url('panel/upload?callback=set_ktp_file'); ?>"></iframe>
+	</div>
 	
   	<div class="mainbar">
 	    <div class="page-head">
@@ -138,6 +141,21 @@
 										<input type="text" name="price_angsuran" class="form-control" placeholder="Angsuran" />
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Alamat</label>
+									<div class="col-lg-10">
+										<textarea class="form-control form-entry" rows="3" name="address" placeholder="Alamat"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Upload KTP</label>
+									<div class="col-lg-4">
+										<input type="text" name="ktp_file" class="form-control" placeholder="Upload KTP" />
+									</div>
+									<div class="col-lg-3">
+										<input type="button" class="btn btn-primary btn-browse-ktp" value="Browse" />
+									</div>
+								</div>
 							</div>
 							<div class="col-lg-3">
 								<div class="form-group">
@@ -160,7 +178,7 @@
 								</div>
 								<div class="form-group">
 									<label>SUB</label>
-									<input type="text" name="sub" class="form-control" placeholder="SUB" />
+									<input type="text" name="sub" class="form-control" placeholder="SUB" readonly="readonly" />
 								</div>
 								<div class="form-group">
 									<label>Leasing</label>
@@ -216,6 +234,7 @@ $(document).ready(function() {
 	}
 	
 	if ($('#form-kredit-kendaraan').length == 1) {
+		// form
 		$('#form-kredit-kendaraan form').validate({
 			rules: {
 				jenis_unit_id: { required: true },
@@ -244,6 +263,18 @@ $(document).ready(function() {
 			
 			return false;
 		});
+		$('#form-kredit-kendaraan [name="dp_customer"], #form-kredit-kendaraan [name="dp_gross"]').keyup(function() {
+			var dp_gross = $('#form-kredit-kendaraan [name="dp_gross"]').val();
+			var dp_customer = $('#form-kredit-kendaraan [name="dp_customer"]').val();
+			var sub = dp_gross - dp_customer;
+			$('#form-kredit-kendaraan [name="sub"]').val(sub);
+		});
+		
+		// upload
+		$('.btn-browse-ktp').click(function() { window.iframe_ktp_file.browse() });
+		set_ktp_file = function(p) {
+			$('#form-kredit-kendaraan [name="ktp_file"]').val(p.file_name);
+		}
 	}
 });
 </script>

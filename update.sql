@@ -19,3 +19,4 @@
 
 2014-02-05 :
 - ALTER TABLE `user` ADD `koordinator_id` INT NOT NULL AFTER `user_type_id` ;
+- ALTER TABLE `penjualan` ADD `ktp_file` VARCHAR( 150 ) NOT NULL AFTER `delivery_man` ;
