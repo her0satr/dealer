@@ -28,6 +28,7 @@
 	<link rel="stylesheet" href="<?php echo base_url('static/js/datatables/css/dataTables.bootstrap.css'); ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('static/css/widgets.css'); ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('static/css/jquery.gritter.css'); ?>" />
+	<link rel="stylesheet" href="<?php echo base_url('static/css/tree.css'); ?>" />
 	
 	<link rel="shortcut icon" href="<?php echo base_url('static/img/favicon/favicon.png'); ?>" />
 	

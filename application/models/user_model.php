@@ -4,7 +4,7 @@ class User_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'user_type_id', 'email', 'fullname', 'passwd', 'address', 'register_date', 'is_active', 'thumbnail' );
+        $this->field = array( 'id', 'user_type_id', 'koordinator_id', 'email', 'fullname', 'passwd', 'address', 'register_date', 'is_active', 'thumbnail' );
     }
 
     function update($param) {
@@ -61,18 +61,21 @@ class User_model extends CI_Model {
 		$param['field_replace']['user_type_name'] = 'UserType.name';
 		
 		$string_namelike = (!empty($param['namelike'])) ? "AND User.email LIKE '%".$param['namelike']."%'" : '';
+		$string_user_type = (!empty($param['user_type_id'])) ? "AND User.user_type_id = '".$param['user_type_id']."'" : '';
+		$string_koordinator = (isset($param['koordinator_id'])) ? "AND User.koordinator_id = '".$param['koordinator_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'name ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'fullname ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS User.*, UserType.name user_type_name
 			FROM ".USER." User
 			LEFT JOIN ".USER_TYPE." UserType ON UserType.id = User.user_type_id
-			WHERE 1 $string_namelike $string_filter
+			WHERE 1 $string_namelike $string_user_type $string_koordinator $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
+		
         $select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
 			$array[] = $this->sync($row, $param);
@@ -89,6 +92,33 @@ class User_model extends CI_Model {
 		
 		return $TotalRecord;
     }
+	
+	function get_array_koordinator_sales($param = array()) {
+		$result = $this->get_array(array( 'user_type_id' => USER_ID_SALES ));
+		return $result;
+	}
+	
+	function get_tree($param = array()) {
+		$param['koordinator_id'] = (isset($param['koordinator_id'])) ? $param['koordinator_id'] : 0;
+		
+		$result = array();
+		$array_input = $this->get_array($param);
+		foreach ($array_input as $key => $row) {
+			$param_child['koordinator_id'] = $row['id'];
+			$array_child = $this->get_tree($param_child);
+			
+			$array = array(
+				'id' => $row['id'],
+				'title' => $row['fullname']
+			);
+			if (count($array_child) > 0) {
+				$array['child'] = $array_child;
+			}
+			$result[] = $array;
+		}
+		
+		return $result;
+	}
 	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".USER." WHERE id = '".$param['id']."' LIMIT 1";
@@ -152,7 +182,8 @@ class User_model extends CI_Model {
 				'title' => 'Member',
 				'user_type_id' => array( 1 ),
 				'children' => array(
-					array( 'name' => 'user', 'title' => 'User', 'user_type_id' => array( 1 ) )
+					array( 'name' => 'user', 'title' => 'User', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'koordinator_sales', 'title' => 'Koordinator Sales', 'user_type_id' => array( 1 ) )
 				)
 			),
 			array(

@@ -40,7 +40,7 @@
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Gesek</label>
-					<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_gesek" value="1" /></label></div>
+					<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_gesek" value="1" disabled="disabled" /></label></div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">BAST</label>
@@ -222,7 +222,7 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">SUB</label>
 								<div class="col-lg-10">
-									<input type="text" name="sub" class="form-control form-entry" placeholder="SUB" />
+									<input type="text" name="sub" class="form-control form-entry" placeholder="SUB" readonly="readonly" />
 								</div>
 							</div>
 							<hr />
@@ -234,7 +234,7 @@
 								</div>
 								<div class="form-group">
 									<label class="col-lg-2 control-label">Geset</label>
-									<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_gesek" class="form-entry" value="1" /></label></div>
+									<div class="col-lg-10"><label class="checkbox-inline"><input type="checkbox" name="with_gesek" class="form-entry" value="1" disabled="disabled" /></label></div>
 								</div>
 								<div class="form-group">
 									<label class="col-lg-2 control-label">Bast</label>
@@ -307,12 +307,22 @@ $(document).ready(function() {
 			var temp = $('.cnt-data').html();
 			eval('var data = ' + temp);
 			page.data = data;
+			
+			if (page.data.user_type_id == page.data.USER_ID_DELIVERY || page.data.user_type_id == page.data.USER_ID_ADMINISTRATOR) {
+				$('[name="with_gesek"]').attr('disabled', false);
+			}
 		}
 	}
 	
 	// global
 	$('.btn-show-grid').click(function() {
 		page.show_grid();
+	});
+	$('#form-kredit-kendaraan [name="dp_customer"], #form-kredit-kendaraan [name="dp_gross"]').keyup(function() {
+		var dp_gross = $('#form-kredit-kendaraan [name="dp_gross"]').val();
+		var dp_customer = $('#form-kredit-kendaraan [name="dp_customer"]').val();
+		var sub = dp_gross - dp_customer;
+		$('#form-kredit-kendaraan [name="sub"]').val(sub);
 	});
 	
 	// grid
@@ -351,7 +361,7 @@ $(document).ready(function() {
 						$('#form-kredit-kendaraan [name="with_ktp"]').click();
 					}
 					if (result.with_gesek == 1) {
-						$('#form-kredit-kendaraan [name="with_gesek"]').click();
+						$('#form-kredit-kendaraan [name="with_gesek"]').prop('checked', true);
 					}
 					if (result.with_bast == 1) {
 						$('#form-kredit-kendaraan [name="with_bast"]').click();
@@ -367,6 +377,7 @@ $(document).ready(function() {
 					} else if (page.data.user_type_id == page.data.USER_ID_DELIVERY) {
 						if (result.status_penjualan_id == page.data.STATUS_PENJUALAN_DITERIMA) {
 							$('.form-entry').attr('disabled', 'disabled');
+							$('#form-kredit-kendaraan [name="with_gesek"]').removeAttr('disabled');
 							$('#form-kredit-kendaraan .form-btn [type="submit"]').show();
 						} else {
 							$('.form-entry').removeAttr('disabled');
@@ -399,7 +410,7 @@ $(document).ready(function() {
 					$('#form-confirm [name="with_ktp"]').click();
 				}
 				if (record.with_gesek == 1) {
-					$('#form-confirm [name="with_gesek"]').click();
+					$('#form-confirm [name="with_gesek"]').prop('checked', true);
 				}
 				if (record.with_bast == 1) {
 					$('#form-confirm [name="with_bast"]').click();

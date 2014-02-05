@@ -16,3 +16,6 @@
 
 2013-01-20 :
 - ALTER TABLE  `penjualan` ADD  `noka_nosin` VARCHAR( 50 ) NOT NULL,  ADD  `delivery_date` DATE NOT NULL, ADD  `delivery_man` VARCHAR( 255 ) NOT NULL
+
+2014-02-05 :
+- ALTER TABLE `user` ADD `koordinator_id` INT NOT NULL AFTER `user_type_id` ;

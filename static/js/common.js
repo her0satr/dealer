@@ -556,6 +556,38 @@ var Func = {
 		return dt;
 	},
 	
+	// auto reload page
+	doc_time_out: null,
+	body_timeout: function() {
+		Func.doc_time_out = setTimeout(function(){
+			window.location = window.location.href;
+		}, 1000 * 60 * 5);
+	},
+	reset_timeout: function() {
+		clearTimeout(Func.doc_time_out);
+		Func.body_timeout();
+	},
+	auto_reload: function() {
+		document.onload = Func.body_timeout;
+		document.body.onmouseover = Func.reset_timeout;
+	},
+	
+	// tree
+	init_tree: function(p) {
+		$(p.cnt + ' .tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+		$(p.cnt + ' .tree li.parent_li > span').on('click', function (e) {
+			var children = $(this).parent('li.parent_li').find(' > ul > li');
+			if (children.is(":visible")) {
+				children.hide('fast');
+				$(this).attr('title', 'Expand this branch').find(' > i').addClass('fa-plus').removeClass('fa-minus-circle');
+			} else {
+				children.show('fast');
+				$(this).attr('title', 'Collapse this branch').find(' > i').addClass('fa-minus-circle').removeClass('fa-plus');
+			}
+			e.stopPropagation();
+		});
+	},
+	
 	get_seeker: function() {
 		var seeker_temp = $('.cnt-seeker').text();
 		eval('var seeker = ' + seeker_temp);
@@ -630,3 +662,5 @@ var combo = {
 		Func.ajax(ajax_param);
 	}
 }
+
+Func.auto_reload();

@@ -1,5 +1,8 @@
 <?php
 	$array_user_type = $this->User_Type_model->get_array();
+	$array_koordinator = $this->User_model->get_array(array( 'user_type_id' => USER_ID_SALES ));
+	
+	$page_data['USER_ID_SALES'] = USER_ID_SALES;
 ?>
 <?php $this->load->view( 'panel/common/meta', array( 'title' => 'User' ) ); ?>
 
@@ -76,6 +79,14 @@
 									</select>
 								</div>
 							</div>
+							<div class="form-group cnt-sales">
+								<label class="col-lg-2 control-label">Koordinator Sales</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="koordinator_id">
+										<?php echo ShowOption(array( 'Array' => $array_koordinator, 'ArrayTitle' => 'fullname' )); ?>
+									</select>
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Email</label>
 								<div class="col-lg-10">
@@ -100,7 +111,6 @@
 									<input type="password" name="passwd_confirm" class="form-control" placeholder="Password Confirm" />
 								</div>
 							</div>
-							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Avatar</label>
 								<div class="col-lg-4">
@@ -110,7 +120,6 @@
 									<input type="button" class="btn btn-primary btn-browse-avatar" value="Browse" />
 								</div>
 							</div>
-							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Address</label>
 								<div class="col-lg-10">
@@ -157,14 +166,30 @@ $(document).ready(function() {
 			$('#form-user').hide();
 		},
 		show_form_user: function() {
+			$('#form-user [name="user_type_id"]').change();
+			
 			$('.grid-main').hide();
 			$('#form-user').show();
+		},
+		init: function() {
+			var temp = $('.cnt-data').html();
+			eval('var data = ' + temp);
+			page.data = data;
 		}
 	}
+	page.init();
 	
 	// global
 	$('.btn-show-grid').click(function() {
 		page.show_grid();
+	});
+	$('#form-user [name="user_type_id"]').change(function() {
+		var value = $(this).val();
+		if (value == page.data.USER_ID_SALES) {
+			$('.cnt-sales').show();
+		} else {
+			$('.cnt-sales').hide();
+		}
 	});
 	
 	// upload
