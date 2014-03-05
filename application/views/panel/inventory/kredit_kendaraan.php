@@ -1,7 +1,6 @@
 <?php
 	$user = $this->User_model->get_session();
 	$array_jenis_unit = $this->Jenis_Unit_model->get_array();
-	$array_jenis_warna = $this->Jenis_Warna_model->get_array();
 	$array_jenis_leasing = $this->Jenis_Leasing_model->get_array();
 	$array_jenis_angsuran = $this->Jenis_Angsuran_model->get_array();
 	$array_jenis_pembayaran = $this->Jenis_Pembayaran_model->get_array();
@@ -125,7 +124,7 @@
 								<label class="col-lg-2 control-label">Jenis Warna</label>
 								<div class="col-lg-10">
 									<select class="form-control form-entry" name="jenis_warna_id">
-										<?php echo ShowOption(array( 'Array' => $array_jenis_warna )); ?>
+										<option value="">-</option>
 									</select>
 								</div>
 							</div>
@@ -337,6 +336,9 @@ $(document).ready(function() {
 		var sub = dp_gross - dp_customer;
 		$('#form-kredit-kendaraan [name="sub"]').val(sub);
 	});
+	$('#form-kredit-kendaraan [name="jenis_unit_id"]').change(function() {
+		combo.jenis_warna({ jenis_unit_id: $(this).val(), target: $('#form-kredit-kendaraan [name="jenis_warna_id"]') });
+	});
 	$('#form-kredit-kendaraan .btn-check-ktp').click(function() {
 		var ktp_file = $('#form-kredit-kendaraan [name="ktp_file"]').val();
 		if (ktp_file.length == 0) {
@@ -358,7 +360,6 @@ $(document).ready(function() {
 				Func.ajax({ url: web.host + 'panel/inventory/kredit_kendaraan/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					$('#form-kredit-kendaraan [name="id"]').val(result.id);
 					$('#form-kredit-kendaraan [name="jenis_unit_id"]').val(result.jenis_unit_id);
-					$('#form-kredit-kendaraan [name="jenis_warna_id"]').val(result.jenis_warna_id);
 					$('#form-kredit-kendaraan [name="jenis_pembayaran_id"]').val(result.jenis_pembayaran_id);
 					$('#form-kredit-kendaraan [name="jenis_angsuran_id"]').val(result.jenis_angsuran_id);
 					$('#form-kredit-kendaraan [name="jenis_leasing_id"]').val(result.jenis_leasing_id);
@@ -375,6 +376,9 @@ $(document).ready(function() {
 					$('#form-kredit-kendaraan [name="dp_customer"]').val(result.dp_customer);
 					$('#form-kredit-kendaraan [name="dp_gross"]').val(result.dp_gross);
 					$('#form-kredit-kendaraan [name="sub"]').val(result.sub);
+					
+					// async data
+					combo.jenis_warna({ jenis_unit_id: result.jenis_unit_id, target: $('#form-kredit-kendaraan [name="jenis_warna_id"]'), value: result.jenis_warna_id });
 					
 					// additional information
 					$('#form-kredit-kendaraan [name="with_ktp"], #form-kredit-kendaraan [name="with_gesek"], #form-kredit-kendaraan [name="with_bast"]').attr('checked', false);

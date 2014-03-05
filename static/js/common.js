@@ -629,6 +629,27 @@ var Func = {
 }
 
 var combo = {
+	jenis_warna: function(p) {
+		p.jenis_unit_id = (p.jenis_unit_id == null) ? 0 : p.jenis_unit_id;
+		
+		var ajax_param = {
+			is_json: 0, url: web.host + 'panel/combo',
+			param: { action: 'jenis_warna', jenis_unit_id: p.jenis_unit_id, force_id: p.value },
+			callback: function(option) {
+				p.target.html(option);
+				
+				// set value
+				if (typeof(p.value) != 'undefined') {
+					p.target.val(p.value);
+				}
+				
+				if (p.callback != null) {
+					p.callback();
+				}
+			}
+		}
+		Func.ajax(ajax_param);
+	},
 	kota: function(p) {
 		p.propinsi_id = (p.propinsi_id == null) ? 0 : p.propinsi_id;
 		

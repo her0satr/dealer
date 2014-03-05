@@ -2,14 +2,12 @@
 	$user = $this->User_model->get_session();
 	
 	$array_jenis_unit = $this->Jenis_Unit_model->get_array();
-	$array_jenis_warna = $this->Jenis_Warna_model->get_array();
 	$array_jenis_leasing = $this->Jenis_Leasing_model->get_array();
 	$array_jenis_angsuran = $this->Jenis_Angsuran_model->get_array();
 	$array_jenis_pembayaran = $this->Jenis_Pembayaran_model->get_array();
 	
 	// chart
 	$array_rekap_yearly = $this->Penjualan_model->get_rekap_yearly();
-//	print_r($array_rekap_yearly); exit;
 	
 	$page_data['user_type_id'] = $user['user_type_id'];
 	$page_data['array_rekap_yearly'] = $array_rekap_yearly;
@@ -117,7 +115,7 @@
 									</div>
 									<div class="col-lg-3">
 										<select class="form-control" name="jenis_warna_id">
-											<?php echo ShowOption(array( 'Array' => $array_jenis_warna )); ?>
+											<option value="">-</option>
 										</select>
 									</div>
 								</div>
@@ -268,6 +266,9 @@ $(document).ready(function() {
 			var dp_customer = $('#form-kredit-kendaraan [name="dp_customer"]').val();
 			var sub = dp_gross - dp_customer;
 			$('#form-kredit-kendaraan [name="sub"]').val(sub);
+		});
+		$('#form-kredit-kendaraan [name="jenis_unit_id"]').change(function() {
+			combo.jenis_warna({ jenis_unit_id: $(this).val(), target: $('#form-kredit-kendaraan [name="jenis_warna_id"]') });
 		});
 		
 		// upload

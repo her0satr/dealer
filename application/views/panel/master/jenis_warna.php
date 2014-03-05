@@ -1,3 +1,6 @@
+<?php
+	$array_jenis_unit = $this->Jenis_Unit_model->get_array();
+?>
 <?php $this->load->view( 'panel/common/meta', array( 'title' => 'Jenis Warna' ) ); ?>
 
 <body>
@@ -30,6 +33,7 @@
 						<table id="datatable" class="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
+									<th>Jenis Unit</th>
 									<th>Name</th>
 									<th>Control</th></tr>
 							</thead>
@@ -58,6 +62,14 @@
 							<input type="hidden" name="action" value="update" />
 							<input type="hidden" name="id" value="0" />
 							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Jenis Unit</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="jenis_unit_id">
+										<?php echo ShowOption(array( 'Array' => $array_jenis_unit )); ?>
+									</select>
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Name</label>
 								<div class="col-lg-10">
@@ -107,7 +119,7 @@ $(document).ready(function() {
 	var param = {
 		id: 'datatable',
 		source: web.host + 'panel/master/jenis_warna/grid',
-		column: [ { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { }, { bSortable: false, sClass: "center" } ],
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
@@ -116,6 +128,7 @@ $(document).ready(function() {
 				Func.ajax({ url: web.host + 'panel/master/jenis_warna/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					$('#form-jenis-warna [name="id"]').val(result.id);
 					$('#form-jenis-warna [name="name"]').val(result.name);
+					$('#form-jenis-warna [name="jenis_unit_id"]').val(result.jenis_unit_id);
 					page.show_form_jenis_warna();
 				} });
 			});

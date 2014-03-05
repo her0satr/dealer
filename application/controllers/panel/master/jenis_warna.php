@@ -11,7 +11,7 @@ class jenis_warna extends DEALER_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'name' );
+		$_POST['column'] = array( 'jenis_unit_name', 'name' );
 		
 		$array = $this->Jenis_Warna_model->get_array($_POST);
 		$count = $this->Jenis_Warna_model->get_count();

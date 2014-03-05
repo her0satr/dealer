@@ -1,6 +1,5 @@
 <?php
 	$array_jenis_unit = $this->Jenis_Unit_model->get_array();
-	$array_jenis_warna = $this->Jenis_Warna_model->get_array();
 ?>
 <?php $this->load->view( 'panel/common/meta', array( 'title' => 'Kendaraan Masuk' ) ); ?>
 <body>
@@ -76,7 +75,7 @@
 								<label class="col-lg-2 control-label">Jenis Warna</label>
 								<div class="col-lg-10">
 									<select class="form-control" name="jenis_warna_id">
-										<?php echo ShowOption(array( 'Array' => $array_jenis_warna )); ?>
+										<option value="">-</option>
 									</select>
 								</div>
 							</div>
@@ -144,12 +143,17 @@ $(document).ready(function() {
 	
 	// form jenis leasing
 	$('.btn-add-kendaraan-masuk').click(function() {
-		var current_date = new Date().getDate() + '-' + (new Date().getMonth() + 1 ) + '-' + new Date().getFullYear();
+		var date = str_pad(new Date().getDate(), 2, "0", 'STR_PAD_LEFT');
+		var month = str_pad(new Date().getMonth() + 1, 2, "0", 'STR_PAD_LEFT');
+		var current_date = date + '-' + month + '-' + new Date().getFullYear();
 		
 		page.show_form_kendaraan_masuk();
 		$('#form-kendaraan-masuk form')[0].reset();
 		$('#form-kendaraan-masuk [name="id"]').val(0);
 		$('#form-kendaraan-masuk [name="stock_date"]').val(current_date);
+	});
+	$('#form-kendaraan-masuk [name="jenis_unit_id"]').change(function() {
+		combo.jenis_warna({ jenis_unit_id: $(this).val(), target: $('#form-kendaraan-masuk [name="jenis_warna_id"]') });
 	});
 	$('#form-kendaraan-masuk form').validate({
 		rules: {

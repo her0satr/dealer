@@ -4,7 +4,7 @@ class Jenis_Warna_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'name' );
+        $this->field = array( 'id', 'jenis_unit_id', 'name' );
     }
 
     function update($param) {
@@ -47,21 +47,37 @@ class Jenis_Warna_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
+		
+		$force_id = (isset($param['force_id'])) ? $param['force_id'] : 0;
+		$string_jenis_unit = (isset($param['jenis_unit_id'])) ? "AND JenisWarna.jenis_unit_id = '".$param['jenis_unit_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'name ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS JenisWarna.*
+			SELECT SQL_CALC_FOUND_ROWS JenisWarna.*, JenisUnit.name jenis_unit_name
 			FROM ".JENIS_WARNA." JenisWarna
-			WHERE 1 $string_filter
+			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = JenisWarna.jenis_unit_id
+			WHERE 1 $string_jenis_unit $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
         $select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+            if (!empty($force_id)) {
+                $force_id = ($force_id == $row['id']) ? 0 : $force_id;
+            }
+			
 			$array[] = $this->sync($row, $param);
 		}
+		
+        if (!empty($force_id)) {
+            $array_force = $this->get_by_id(array('id' => $force_id));
+			if (count($array_force) > 0) {
+				$array[] = $array_force;
+			}
+        }
 		
         return $array;
     }
