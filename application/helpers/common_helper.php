@@ -932,6 +932,22 @@
 		}
 	}
 	
+	if (! function_exists('get_array_warna')) {
+		function get_array_warna() {
+			$array = array(
+				array( 'id' => '#0000FF', 'name' => 'Biru' ),
+				array( 'id' => '#0090A2', 'name' => 'Biru Muda' ),
+				array( 'id' => '#00FF00', 'name' => 'Hijau' ),
+				array( 'id' => '#66FF99', 'name' => 'Hijau Muda' ),
+				array( 'id' => '#FFFF66', 'name' => 'Kuning' ),
+				array( 'id' => '#FF0000', 'name' => 'Merah' ),
+				array( 'id' => '#FF66CC', 'name' => 'Merah Muda' )
+			);
+			
+			return $array;
+		}
+	}
+	
 	if (! class_exists('curl')) {
 		class curl {
 			var $callback = false;

@@ -4,7 +4,8 @@ class Jenis_Unit_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'name' );
+        $this->field = array( 'id', 'name', 'warna' );
+		$this->warna = get_array_warna();
     }
 
     function update($param) {
@@ -87,6 +88,15 @@ class Jenis_Unit_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
+		
+		$row['warna_text'] = '';
+		if (!empty($row['warna'])) {
+			foreach ($this->warna as $warna) {
+				if ($warna['id'] == $row['warna']) {
+					$row['warna_text'] = $warna['name'];
+				}
+			}
+		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

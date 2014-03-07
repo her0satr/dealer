@@ -523,6 +523,17 @@ var Func = {
 				// tooltip
 				$('.btn-xs').tooltip();
 				
+				// coloring row
+				var counter = $(cnt_id).find('tbody tr').length;
+				if (counter > 0) {
+					for (var i = 0; i < counter; i++) {
+						var color = $(cnt_id).find('tbody tr').eq(i).find('span.color').data('color');
+						if (color != null) {
+							$(cnt_id).find('tbody tr').eq(i).find('td').css('background', color);
+						}
+					}
+				}
+				
 				if (p.callback != null) {
 					p.callback();
 				}

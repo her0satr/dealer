@@ -11,7 +11,7 @@ class jenis_unit extends DEALER_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'name' );
+		$_POST['column'] = array( 'name', 'warna_text' );
 		
 		$array = $this->Jenis_Unit_model->get_array($_POST);
 		$count = $this->Jenis_Unit_model->get_count();

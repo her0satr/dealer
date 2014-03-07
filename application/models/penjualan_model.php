@@ -59,7 +59,7 @@ class Penjualan_model extends CI_Model {
 		
 		$param['field_replace']['name'] = 'Penjualan.name';
 		$param['field_replace']['sales_name'] = 'User.fullname';
-		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
+		$param['field_replace']['jenis_unit_text'] = 'JenisUnit.name';
 		$param['field_replace']['order_date_swap'] = 'Penjualan.order_date';
 		$param['field_replace']['status_penjualan_name'] = 'StatusPenjualan.name';
 		
@@ -77,7 +77,8 @@ class Penjualan_model extends CI_Model {
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS Penjualan.*,
-				User.fullname sales_name, JenisUnit.name jenis_unit_name, JenisPembayaran.name jenis_pembayaran_name,
+				User.fullname sales_name, JenisUnit.name jenis_unit_name, JenisUnit.warna jenis_unit_warna,
+				JenisPembayaran.name jenis_pembayaran_name,
 				StatusPenjualan.name status_penjualan_name
 			FROM ".PENJUALAN." Penjualan
 			LEFT JOIN ".USER." User ON User.id = Penjualan.sales_id
@@ -277,6 +278,11 @@ class Penjualan_model extends CI_Model {
 		
 		$row = StripArray($row, array( 'delivery_date' ));
 		$row['order_date_swap'] = ExchangeFormatDate($row['order_date']);
+		
+		// coloring
+		if (isset($row['jenis_unit_warna']) && isset($row['jenis_unit_name'])) {
+			$row['jenis_unit_text'] = '<span class="color" data-color="'.$row['jenis_unit_warna'].'">'.$row['jenis_unit_name'].'</span>';
+		}
 		
 		// status penjualan
 		if (!empty($row['status_penjualan_name']) && $row['status_penjualan_id'] == STATUS_PENJUALAN_DITERIMA) {

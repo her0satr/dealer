@@ -10,7 +10,7 @@ class kendaraan_masuk extends DEALER_Controller {
 	}
 	
 	function grid() {
-		$_POST['column'] = array( 'stock_date', 'jenis_unit_name', 'jenis_warna_name', 'stock_update', 'stock_total' );
+		$_POST['column'] = array( 'stock_date', 'jenis_unit_text', 'jenis_warna_name', 'stock_update', 'stock_total' );
 		
 		$array = $this->Kendaraan_model->get_array($_POST);
 		$count = $this->Kendaraan_model->get_count();

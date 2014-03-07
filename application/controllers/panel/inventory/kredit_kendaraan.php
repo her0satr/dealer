@@ -14,7 +14,7 @@ class kredit_kendaraan extends DEALER_Controller {
 		
 		$_POST['kredit_penjualan_grid'] = 1;
 		$_POST['user_type_id'] = $user['user_type_id'];
-		$_POST['column'] = array( 'sales_name', 'jenis_unit_name', 'name', 'order_date_swap', 'status_penjualan_name' );
+		$_POST['column'] = array( 'sales_name', 'jenis_unit_text', 'name', 'order_date_swap', 'status_penjualan_name' );
 		
 		// additional filter for sales
 		if ($user['user_type_id'] == USER_ID_SALES) {

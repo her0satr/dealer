@@ -62,7 +62,7 @@ class Kendaraan_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
+		$param['field_replace']['jenis_unit_text'] = 'JenisUnit.name';
 		$param['field_replace']['jenis_warna_name'] = 'JenisWarna.name';
 		
 		$string_filter = GetStringFilter($param, @$param['column']);
@@ -78,7 +78,7 @@ class Kendaraan_model extends CI_Model {
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS Kendaraan.*,
-				JenisUnit.name jenis_unit_name, JenisWarna.name jenis_warna_name
+				JenisUnit.name jenis_unit_name, JenisUnit.warna jenis_unit_warna, JenisWarna.name jenis_warna_name
 			FROM ".KENDARAAN." Kendaraan
 			LEFT JOIN ".JENIS_WARNA." JenisWarna ON JenisWarna.id = Kendaraan.jenis_warna_id
 			LEFT JOIN ".JENIS_UNIT." JenisUnit ON JenisUnit.id = Kendaraan.jenis_unit_id
@@ -170,6 +170,11 @@ class Kendaraan_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row, array( 'stock_date' ));
+		
+		// coloring
+		if (isset($row['jenis_unit_warna']) && isset($row['jenis_unit_name'])) {
+			$row['jenis_unit_text'] = '<span class="color" data-color="'.$row['jenis_unit_warna'].'">'.$row['jenis_unit_name'].'</span>';
+		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);
