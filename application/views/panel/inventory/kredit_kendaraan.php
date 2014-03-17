@@ -176,11 +176,17 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-2 control-label">Alamat Kirim</label>
+								<div class="col-lg-10">
+									<textarea class="form-control form-entry" rows="3" name="address_delivery" placeholder="Alamat Kirim"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-2 control-label">Upload KTP</label>
 								<div class="col-lg-4">
 									<input type="text" name="ktp_file" class="form-control" placeholder="Upload KTP" />
 								</div>
-								<div class="col-lg-2">
+								<div class="col-lg-4">
 									<input type="button" class="btn btn-primary btn-browse-ktp" value="Browse" />
 									<input type="button" class="btn btn-primary btn-check-ktp" value="Check File" />
 								</div>
@@ -339,6 +345,11 @@ $(document).ready(function() {
 	$('#form-kredit-kendaraan [name="jenis_unit_id"]').change(function() {
 		combo.jenis_warna({ jenis_unit_id: $(this).val(), target: $('#form-kredit-kendaraan [name="jenis_warna_id"]') });
 	});
+	$('#form-kredit-kendaraan [name="jenis_warna_id"]').change(function() {
+		if ($(this).find(':selected').data('json') != null) {
+			$('#form-kredit-kendaraan [name="price_otr"]').val($(this).find(':selected').data('json').price);
+		}
+	});
 	$('#form-kredit-kendaraan .btn-check-ktp').click(function() {
 		var ktp_file = $('#form-kredit-kendaraan [name="ktp_file"]').val();
 		if (ktp_file.length == 0) {
@@ -367,6 +378,7 @@ $(document).ready(function() {
 					$('#form-kredit-kendaraan [name="nik"]').val(result.nik);
 					$('#form-kredit-kendaraan [name="phone"]').val(result.phone);
 					$('#form-kredit-kendaraan [name="address"]').val(result.address);
+					$('#form-kredit-kendaraan [name="address_delivery"]').val(result.address_delivery);
 					$('#form-kredit-kendaraan [name="ktp_file"]').val(result.ktp_file);
 					$('#form-kredit-kendaraan [name="birth_place"]').val(result.birth_place);
 					$('#form-kredit-kendaraan [name="birth_date"]').val(Func.SwapDate(result.birth_date));

@@ -39,6 +39,7 @@
         function ShowOption($Param) {
             $Param['OptAll'] = (isset($Param['OptAll'])) ? $Param['OptAll'] : false;
             $Param['ArrayID'] = (isset($Param['ArrayID'])) ? $Param['ArrayID'] : 'id';
+            $Param['WithJson'] = (isset($Param['WithJson'])) ? $Param['WithJson'] : false;
             $Param['WithEmptySelect'] = (isset($Param['WithEmptySelect'])) ? $Param['WithEmptySelect'] : 1;
             
             $Param['ArrayTitle'] = (isset($Param['ArrayTitle'])) ? $Param['ArrayTitle'] : 'name';
@@ -58,7 +59,8 @@
             
             foreach ($Param['Array'] as $Array) {
                 $Selected = ($Param['Selected'] == $Array[$Param['ArrayID']]) ? 'selected' : '';
-                $Content .= '<option value="'.$Array[$Param['ArrayID']].'" '.$Selected.'>'.$Array[$Param['ArrayTitle']].'</option>';
+				$string_json = ($Param['WithJson']) ? 'data-json="'.htmlentities(json_encode($Array)).'"' : '';
+                $Content .= '<option value="'.$Array[$Param['ArrayID']].'" '.$string_json.' '.$Selected.'>'.$Array[$Param['ArrayTitle']].'</option>';
             }
             
             return $Content;
@@ -110,7 +112,9 @@
     
     if (! function_exists('MoneyFormat')) {
         function MoneyFormat($Value) {
-            return number_format($Value, 2, ',', '.');
+            $temp = number_format($Value, 0, ',', '.');
+			$temp .= ',-';
+			return $temp;
         }
     }
     

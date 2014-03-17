@@ -76,6 +76,23 @@ class Jenis_Leasing_model extends CI_Model {
     }
 	
     function delete($param) {
+        $record_count = 0;
+        $select_query = array();
+        if (isset($param['id'])) {
+            $select_query[] = "SELECT COUNT(*) total FROM ".PENJUALAN." WHERE jenis_leasing_id = '".$param['id']."'";
+        }
+        foreach ($select_query as $query) {
+            $select_result = mysql_query($query) or die(mysql_error());
+            if (false !== $row = mysql_fetch_assoc($select_result)) {
+                $record_count += $row['total'];
+            }
+        }
+		if ($record_count > 0) {
+            $result['status'] = '0';
+            $result['message'] = 'Data tidak bisa dihapus karena sudah terpakai.';
+			return $result;
+		}
+		
 		$delete_query  = "DELETE FROM ".JENIS_LEASING." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		

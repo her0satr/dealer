@@ -4,7 +4,7 @@ class Jenis_Warna_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'jenis_unit_id', 'name' );
+        $this->field = array( 'id', 'jenis_unit_id', 'name', 'price' );
     }
 
     function update($param) {
@@ -47,6 +47,7 @@ class Jenis_Warna_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['price_text'] = 'JenisWarna.price';
 		$param['field_replace']['jenis_unit_name'] = 'JenisUnit.name';
 		
 		$force_id = (isset($param['force_id'])) ? $param['force_id'] : 0;
@@ -92,6 +93,24 @@ class Jenis_Warna_model extends CI_Model {
     }
 	
     function delete($param) {
+        $record_count = 0;
+        $select_query = array();
+        if (isset($param['id'])) {
+            $select_query[] = "SELECT COUNT(*) total FROM ".KENDARAAN." WHERE jenis_warna_id = '".$param['id']."'";
+            $select_query[] = "SELECT COUNT(*) total FROM ".PENJUALAN." WHERE jenis_warna_id = '".$param['id']."'";
+        }
+        foreach ($select_query as $query) {
+            $select_result = mysql_query($query) or die(mysql_error());
+            if (false !== $row = mysql_fetch_assoc($select_result)) {
+                $record_count += $row['total'];
+            }
+        }
+		if ($record_count > 0) {
+            $result['status'] = '0';
+            $result['message'] = 'Data tidak bisa dihapus karena sudah terpakai.';
+			return $result;
+		}
+		
 		$delete_query  = "DELETE FROM ".JENIS_WARNA." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
@@ -103,6 +122,10 @@ class Jenis_Warna_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
+		
+		if (isset($row['price'])) {
+			$row['price_text'] = MoneyFormat($row['price']);
+		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

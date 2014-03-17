@@ -12,7 +12,7 @@ class combo extends CI_Controller {
 			$array = $this->Jenis_Warna_model->get_array($_POST);
 		}
 		
-		echo ShowOption(array( 'Array' => $array ));
+		echo ShowOption(array( 'Array' => $array, 'WithJson' => true ));
 		exit;
 	}
 }

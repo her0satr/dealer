@@ -195,8 +195,7 @@ class User_model extends CI_Model {
 					array( 'name' => 'jenis_warna', 'title' => 'Jenis Warna', 'user_type_id' => array( 1 ) ),
 					array( 'name' => 'jenis_leasing', 'title' => 'Jenis Leasing', 'user_type_id' => array( 1 ) ),
 					array( 'name' => 'jenis_angsuran', 'title' => 'Jenis Angsuran', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_pembayaran', 'title' => 'Jenis Pembayaran', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_waktu_kredit', 'title' => 'Jenis Waktu Kredit', 'user_type_id' => array( 1 ) )
+					array( 'name' => 'jenis_pembayaran', 'title' => 'Jenis Pembayaran', 'user_type_id' => array( 1 ) )
 				)
 			)
 		);

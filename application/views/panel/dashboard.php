@@ -107,6 +107,12 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label class="col-lg-2 control-label">Alamat Kirim</label>
+									<div class="col-lg-10">
+										<textarea class="form-control form-entry" rows="3" name="address_delivery" placeholder="Alamat Kirim"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
 									<label class="col-lg-2 control-label">Jenis Unit</label>
 									<div class="col-lg-7">
 										<select class="form-control" name="jenis_unit_id">
@@ -123,26 +129,6 @@
 									<label class="col-lg-2 control-label">Harga OTR</label>
 									<div class="col-lg-10">
 										<input type="text" name="price_otr" class="form-control" placeholder="Harga OTR" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-2 control-label">Lama Angsuran</label>
-									<div class="col-lg-10">
-										<select class="form-control" name="jenis_angsuran_id">
-											<?php echo ShowOption(array( 'Array' => $array_jenis_angsuran )); ?>
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-2 control-label">Angsuran</label>
-									<div class="col-lg-10">
-										<input type="text" name="price_angsuran" class="form-control" placeholder="Angsuran" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-lg-2 control-label">Alamat</label>
-									<div class="col-lg-10">
-										<textarea class="form-control form-entry" rows="3" name="address" placeholder="Alamat"></textarea>
 									</div>
 								</div>
 								<div class="form-group">
@@ -167,6 +153,12 @@
 									<input type="text" name="discount" class="form-control" placeholder="Potongan Penjualan" />
 								</div>
 								<div class="form-group">
+									<label>Leasing</label>
+									<select class="form-control" name="jenis_leasing_id">
+										<?php echo ShowOption(array( 'Array' => $array_jenis_leasing )); ?>
+									</select>
+								</div>
+								<div class="form-group">
 									<label>DP Konsumen</label>
 									<input type="text" name="dp_customer" class="form-control" placeholder="DP Konsumen" />
 								</div>
@@ -178,11 +170,16 @@
 									<label>SUB</label>
 									<input type="text" name="sub" class="form-control" placeholder="SUB" readonly="readonly" />
 								</div>
+								
 								<div class="form-group">
-									<label>Leasing</label>
-									<select class="form-control" name="jenis_leasing_id">
-										<?php echo ShowOption(array( 'Array' => $array_jenis_leasing )); ?>
+									<label>Lama Angsuran</label>
+									<select class="form-control" name="jenis_angsuran_id">
+										<?php echo ShowOption(array( 'Array' => $array_jenis_angsuran )); ?>
 									</select>
+								</div>
+								<div class="form-group">
+									<label>Angsuran</label>
+									<input type="text" name="price_angsuran" class="form-control" placeholder="Angsuran" />
 								</div>
 							</div>
 							<div class="clear"></div>
@@ -269,6 +266,11 @@ $(document).ready(function() {
 		});
 		$('#form-kredit-kendaraan [name="jenis_unit_id"]').change(function() {
 			combo.jenis_warna({ jenis_unit_id: $(this).val(), target: $('#form-kredit-kendaraan [name="jenis_warna_id"]') });
+		});
+		$('#form-kredit-kendaraan [name="jenis_warna_id"]').change(function() {
+			if ($(this).find(':selected').data('json') != null) {
+				$('#form-kredit-kendaraan [name="price_otr"]').val($(this).find(':selected').data('json').price);
+			}
 		});
 		
 		// upload

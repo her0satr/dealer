@@ -35,6 +35,7 @@
 								<tr>
 									<th>Jenis Unit</th>
 									<th>Name</th>
+									<th>Harga</th>
 									<th>Control</th></tr>
 							</thead>
 							<tbody></tbody>
@@ -76,7 +77,14 @@
 									<input type="text" name="name" class="form-control" placeholder="Name" />
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Harga</label>
+								<div class="col-lg-10">
+									<input type="text" name="price" class="form-control" placeholder="Harga" />
+								</div>
+							</div>
 							<hr />
+							
 							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-9">
 									<button type="submit" class="btn btn-info">Save</button>
@@ -119,7 +127,7 @@ $(document).ready(function() {
 	var param = {
 		id: 'datatable',
 		source: web.host + 'panel/master/jenis_warna/grid',
-		column: [ { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { }, { sClass: "right" }, { bSortable: false, sClass: "center" } ],
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
@@ -128,6 +136,7 @@ $(document).ready(function() {
 				Func.ajax({ url: web.host + 'panel/master/jenis_warna/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					$('#form-jenis-warna [name="id"]').val(result.id);
 					$('#form-jenis-warna [name="name"]').val(result.name);
+					$('#form-jenis-warna [name="price"]').val(result.price);
 					$('#form-jenis-warna [name="jenis_unit_id"]').val(result.jenis_unit_id);
 					page.show_form_jenis_warna();
 				} });

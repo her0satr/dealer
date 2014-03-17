@@ -499,7 +499,11 @@ var Func = {
 				eval('var result = ' + RawResult);
 				
 				$('#cnt-confirm .btn-close').click();
-				noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 1500 });
+				if (result.status == 1) {
+					noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 1500 });
+				} else {
+					noty({ text: result.message, layout: 'topRight', type: 'error', timeout: 1500 });
+				}
 				
 				if (p.callback != null) {
 					p.callback();

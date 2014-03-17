@@ -79,6 +79,10 @@ height:0px;
 text-align:center;
 }
 
+.right{
+text-align:right;
+}
+
 a:hover,a:active,a:focus {
 outline: 0;
 }
