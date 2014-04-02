@@ -1,5 +1,5 @@
 <?php
-	$array_jenis_unit = $this->Jenis_Unit_model->get_array();
+	$array_jenis_unit = $this->Jenis_Unit_model->get_array(array( 'limit' => 1500 ));
 ?>
 <?php $this->load->view( 'panel/common/meta', array( 'title' => 'Kendaraan Masuk' ) ); ?>
 <body>
