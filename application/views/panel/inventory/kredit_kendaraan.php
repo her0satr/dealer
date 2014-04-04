@@ -1,6 +1,6 @@
 <?php
 	$user = $this->User_model->get_session();
-	$array_jenis_unit = $this->Jenis_Unit_model->get_array();
+	$array_jenis_unit = $this->Jenis_Unit_model->get_array(array( 'limit' => 1500 ));
 	$array_jenis_leasing = $this->Jenis_Leasing_model->get_array();
 	$array_jenis_angsuran = $this->Jenis_Angsuran_model->get_array();
 	$array_jenis_pembayaran = $this->Jenis_Pembayaran_model->get_array();
