@@ -35,8 +35,8 @@
 									<th>Tanggal</th>
 									<th>Jenis Unit</th>
 									<th>Warna</th>
-									<th>Jumlah</th>
-									<th>Total</th></tr>
+									<th>Perubahan Stock</th>
+									<th>Total Stock</th></tr>
 							</thead>
 							<tbody></tbody>
 						</table>
