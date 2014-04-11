@@ -35,7 +35,7 @@
 									<th>Tanggal</th>
 									<th>Jenis Unit</th>
 									<th>Warna</th>
-									<th>Perubahan Stock</th>
+									<th>Keluar & Masuk Stock</th>
 									<th>Total Stock</th></tr>
 							</thead>
 							<tbody></tbody>
